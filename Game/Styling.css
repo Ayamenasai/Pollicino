@@ -1,0 +1,13 @@
+body{
+    background-color:rgb(8, 12, 9);
+    margin-top: 10%;
+    display: auto;
+}
+
+canvas {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    
+}
+
