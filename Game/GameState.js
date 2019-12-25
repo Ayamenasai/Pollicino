@@ -97,7 +97,7 @@ export let GameState = {
 
         healthBar = game.add.sprite( 30, 60,'healthBar');
         healthBar.fixedToCamera = true;
-        life = game.add.sprite( 10, 55,'heart');
+        life = game.add.sprite( 10, 50,'heart');
         life.fixedToCamera = true;
         
         firstText = game.add.text(410, 280, 'Per prendere \n questo sacchetto!', {fontFamily: 'Gill Sans', fontSize: '22px', fill:'#FFDAA1'});
