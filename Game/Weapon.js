@@ -6,29 +6,31 @@ export class Weapon {
         this.collisionGroup = collisionGroup;
         this.fireAngle = 0;
         this.direction ='right';
-        this.fireRate = 50;
+        this.fireRate = 1;
         this.maxBullets = 0;
+        this.damage = 10;
         this.currentBullets = 0;
         this.lastShotTime = 0;
         this.bulletSpeed = 100;
-        this.bullets = [];
     }
     fire(){
         if (this.currentBullets <= 0) {
             return;
         }
-        this.currentBullets -= 1;
-        let currentTime = this.game.time.totalElapsedSeconds();
-        let bulletDirection= this.direction ==='right' ? 1:-1 ;
-        let bullet = new Bullet(this.game,'bullets', this.x, this.y, this.bulletSpeed * bulletDirection, this.collisionGroup); 
-        this.bullets.push(bullet.body);
         
+        let currentTime = this.game.time.totalElapsedSeconds();
+        if (currentTime - this.lastShotTime <= 1 / this.fireRate) {
+            return;
+        }
+        this.lastShotTime = currentTime;
+        this.currentBullets -= 1;
+        let bulletDirection= this.direction === 'right' ? 1:-1 ;
+        new Bullet(this.game, 'bullets', this.x, this.y, this.bulletSpeed * bulletDirection, this.collisionGroup);   
     }
     trackSprite(sprite){
         this.x = sprite.x;
         this.y = sprite.y;
         this.direction = sprite.body.velocity.x >= 0 ? 'right':'left';
-
     }
 }
 class Bullet {

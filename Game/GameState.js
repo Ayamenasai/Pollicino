@@ -1,10 +1,14 @@
-import { Weapon } from './Weapon.js';
+import { EnemyFactory } from './Enemy.js';
+import { Pollicino } from './Pollicino.js';
+import { MainUserInterface } from "./UserInterface.js";
+import { ProximitySymbolFactory } from "./ProximitySymbol.js";
+import { defaultTextFormat, pickupSackText, tutorialCompletedText } from "./Text.js";
+
+let friendlyBulletsGroup, enemyGroup, groundGroup, backgroundGroup, sackGroup;
+let mainUserInterface, enemyFactory, symbolFactory, pollicino;
+
 export let GameState = {
   preload: function (game) {
-    health = maxHealth = 50;
-    lastOverlapTime = 0;
-    wakeup = false;
-
     game.load.atlas(
       'pollicino',
       'Assets/Spritesheet/pollicinoAtlas.png',
@@ -15,10 +19,7 @@ export let GameState = {
     game.load.spritesheet('sindaco', 'Assets/Personaggi/sindaco.png', 138, 206);
     game.load.image('baloon', 'Assets/Personaggi/vignetta.png');
     game.load.spritesheet('background', 'Assets/Backgrounds/back1.png', 1024, 768);
-    game.load.spritesheet('background1', 'Assets/Backgrounds/back2.png',
-      1024,
-      768
-    );
+    game.load.spritesheet('background1', 'Assets/Backgrounds/back2.png', 1024, 768);
     game.load.image('background2', 'Assets/Backgrounds/back2.1.png');
     game.load.image('background2.1', 'Assets/Backgrounds/backVillage.png');
     game.load.image('background3', 'Assets/Backgrounds/back3.png');
@@ -42,22 +43,34 @@ export let GameState = {
 
   create: function (game) {
     backgroundGroup = game.add.group();
-    sack = game.add.physicsGroup();
+    sackGroup = game.add.physicsGroup();
     friendlyBulletsGroup = game.add.group();
     groundGroup = game.add.group();
     enemyGroup = game.add.group();
+
+    pollicino = new Pollicino(game, 100, 300, friendlyBulletsGroup);
+
+    enemyFactory = new EnemyFactory(game, enemyGroup);
+    enemyFactory.create('ladybug', 900, 30, pollicino);
+
+    symbolFactory = new ProximitySymbolFactory(game);
+    let minDistance = 150;
+    symbolFactory.createSprite('frecce', 30, 290, pollicino, minDistance);
+    symbolFactory.createSprite('E', 312, 250, pollicino, minDistance);
+    symbolFactory.createSprite('X', 312, 250, pollicino, minDistance);
+
+    symbolFactory.createText(pickupSackText, 410, 280, defaultTextFormat, pollicino, minDistance);
+    symbolFactory.createText(tutorialCompletedText, 410, 0, defaultTextFormat, pollicino, minDistance);
+
+    mainUserInterface = new MainUserInterface(game, pollicino);
+
+    sackGroup.create(480, 420, 'sack');
 
     game.world.setBounds(0, 0, 5120, 768);
 
     createBackgrounds(game);
     createTerrain(game);
 
-    frecce = game.add.sprite(30, 290, 'frecce');
-    take = game.add.sprite(312, 250, 'E');
-    take.alpha = 0;
-    shoot = game.add.sprite(312, 250, 'X');
-    shoot.alpha = 0;
-    bee = game.add.sprite(3700, 100, 'bee');
 
     vignetta = game.add.sprite(1600, 150, 'baloon');
     sindaco = game.add.sprite(1700, 210, 'sindaco');
@@ -68,100 +81,22 @@ export let GameState = {
       fontSize: '22px',
       fill: '#000000'
     });
-
-    pollicino = game.add.sprite(30, 490, 'pollicino');
-    pollicino.animations.add('walkLeft', buildFramesArray('walkLeft', 9));
-    pollicino.animations.add('walkRight', buildFramesArray('walkRight', 9));
-    pollicino.animations.add('jumpRight', buildFramesArray('jumpRight', 6));
-    pollicino.animations.add('idle', buildFramesArray('idle', 2));
-    pollicino.animations.add('rockRight', buildFramesArray('rockRight', 8));
-    pollicino.animations.add('rockLeft', buildFramesArray('rockLeft', 7));
-    game.physics.arcade.enable(pollicino);
-    pollicino.body.collideWorldBounds = false;
-    pollicino.body.gravity.y = 250;
-    game.camera.follow(pollicino);
-    pollicino.body.setSize(30, 148, 20, 5);
-    pollicino.anchor.setTo(0.5);
-
-    ladybug = game.add.sprite(1024, 10, 'ladybug');
-    enemyGroup.add(ladybug);
-    game.physics.arcade.enable(ladybug);
-    ladybug.body.collideWorldBounds = true;
-    ladybug.animations.add('fly');
-
-    inventory = game.add.sprite(850, 90, 'inventory');
-    inventory.anchor.set(0.5);
-    inventory.fixedToCamera = true;
-    fionda = game.add.sprite(10, 130, 'fionda');
-    fionda.fixedToCamera = true;
-    polline = game.add.sprite(800, 65, 'pollen');
-    polline.fixedToCamera = true;
-    polline.alpha = 0.5;
-    star = game.add.sprite(760, 70, 'star');
-    star.fixedToCamera = true;
-    star.alpha = 0.3;
-
-    healthBar = game.add.sprite(30, 60, 'healthBar');
-    healthBar.fixedToCamera = true;
-    life = game.add.sprite(10, 50, 'heart');
-    life.fixedToCamera = true;
-
-    firstText = game.add.text(410, 280, 'Per prendere \n questo sacchetto!', {
-      fontFamily: 'Gill Sans',
-      fontSize: '22px',
-      fill: '#FFDAA1'
-    });
-    firstText.alpha = 0;
-    secondText = game.add.text(460, 70, 'Tutorial completato!', {
-      fontFamily: 'Gill Sans',
-      fontSize: '22px',
-      fill: '#FFDAA1'
-    });
-    secondText.alpha = 0;
-    secondText.fixedToCamera = true;
-
-    weapon = new Weapon(game, pollicino.x, pollicino.y, friendlyBulletsGroup);
-    weapon.bulletSpeed = 300;
-    weapon.fireRate = 100;
-
-    sack.create(480, 420, 'sack');
-
-    bulletsNumberText = game.add.text(90, 140, '', {
-      fontFamily: 'Gill Sans',
-      fontSize: '32px',
-      fill: '#FFC300'
-    });
-    cursors = game.input.keyboard.createCursorKeys();
-    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    takeButton = game.input.keyboard.addKey(Phaser.Keyboard.E);
-    shooter = game.input.keyboard.addKey(Phaser.Keyboard.X);
   },
 
   update: function (game) {
-
-    ladybug.animations.play('fly', 4, true);
-    game.physics.arcade.collide(groundGroup, pollicino);
+    game.physics.arcade.collide(groundGroup, pollicino.sprite);
     game.physics.arcade.collide(groundGroup, enemyGroup);
-    game.physics.arcade.overlap(
-      pollicino,
-      sack,
-      firstRockCollection,
-      null,
-      game
-    );
-    game.physics.arcade.overlap(pollicino, enemyGroup, touchEnemy, null, game);
-    game.physics.arcade.overlap(
-      enemyGroup,
-      friendlyBulletsGroup,
-      hitEnemy,
-      null,
-      game
-    );
-    healthBar.width = (health / maxHealth) * 250;
-    weapon.trackSprite(pollicino);
 
-    updateInput(game);
-    if (pollicino < 1024) {
+    game.physics.arcade.overlap(pollicino.sprite, sackGroup, getRocksCallback, null, { pollicino });
+    game.physics.arcade.overlap(pollicino.sprite, enemyGroup, touchEnemyCallback, null, { pollicino, enemyFactory });
+    game.physics.arcade.overlap(enemyGroup, friendlyBulletsGroup, hitEnemyCallback, null, { pollicino, enemyFactory });
+
+    enemyFactory.update();
+    pollicino.update();
+    symbolFactory.update();
+    mainUserInterface.update();
+
+    if (pollicino.x < 1024) {
       background.alpha = 1;
       groundGroup.alpha = 1;
       background1.alpha = 0.1;
@@ -174,14 +109,6 @@ export let GameState = {
       background.alpha = 0.1;
       background1.alpha = 1;
       transition.alpha = 1;
-      shoot.alpha = 0;
-      firstText.alpha = 0;
-      take.alpha = 0;
-      secondText.alpha = 0;
-    }
-
-    if (pollicino.x <= 0) {
-      pollicino.x = 0;
     }
 
     if (pollicino.x > 1440) {
@@ -197,66 +124,17 @@ export let GameState = {
       sindacoText.alpha = 0;
       vignetta.alpha = 0;
     }
-    if (pollicino.x < 530) {
-      firstText.alpha = 1;
-      take.alpha = 1;
-    }
-
-    if (!wakeup) {
-      ladybug.body.velocity.x = 0;
-    }
-
-    if (pollicino.x > 560) {
-      wakeup = true;
-      take.alpha = 0;
-    }
-    if (wakeup) {
-      ladybug.body.velocity.x = (ladybug.body.x > pollicino.x ? -1 : 1) * 80;
-    }
-
-    if (pollicino.x < 200) {
-      frecce.alpha = 1;
-    } else {
-      frecce.alpha = 0;
-    }
   }
 };
 
-let pollicino,
-  ladybug,
-  frecce,
-  life,
-  inventory,
-  polline,
-  sack,
-  weapon,
-  cursors,
-  jumpButton,
-  cover,
-  icon;
-let bulletsNumberText,
-  take,
-  shoot,
+let
   background2,
-  health,
-  maxHealth,
-  healthBar,
-  bee,
   sindaco,
-  fionda,
   vignetta,
-  wakeup,
-  lastOverlapTime,
-  firstText,
-  secondText,
   sindacoText,
   background,
   background1,
-  transition,
-  star,
-  shooter,
-  takeButton;
-let friendlyBulletsGroup, enemyGroup, groundGroup, backgroundGroup;
+  transition;
 
 function createBackgrounds(game) {
   background1 = game.add.sprite(1024, 0, 'background1');
@@ -287,103 +165,28 @@ function createTerrain(game) {
   groundGroup.setAll('body.immovable', true);
 }
 
-function updateInput(game) {
-  if (noKeyPressed()) {
-    pollicino.animations.play('idle', 2, true);
-    pollicino.body.velocity.x = 0;
-  }
+function touchEnemyCallback(pollicinoSprite, enemySprite) {
+  let enemy = this.enemyFactory.findEnemy(enemySprite.id);
 
-  if (shooter.isDown) {
-    weapon.fire();
-    bulletsNumberText.text = weapon.currentBullets;
+  if (enemy == undefined) return;
 
-    if (pollicino.x < ladybug.x) {
-      pollicino.animations.play('rockRight', 8, true);
-    } else {
-      pollicino.animations.play('rockLeft', 7, true);
-    }
-  }
-
-  if (cursors.left.isDown) {
-    pollicino.body.velocity.x = -200;
-    pollicino.animations.play('walkLeft', 9, true);
-  }
-  if (cursors.right.isDown) {
-    pollicino.body.velocity.x = 150;
-    pollicino.animations.play('walkRight', 6, true);
-  }
-
-  if (
-    jumpButton.isDown &&
-    (pollicino.body.onFloor() || pollicino.body.touching.down)
-  ) {
-    pollicino.body.velocity.y = -250;
-    pollicino.animations.play('jumpRight', 6, true);
-    pollicino.body.bounce.y = 0.1;
-  }
+  this.pollicino.damageWithRedTint(enemy.damage);
 }
 
-function firstRockCollection(pollicino, sack) {
-  if (takeButton.isDown) {
-    weapon.currentBullets += 30;
-    collectRocks(pollicino, sack);
-    shoot.alpha = 1;
-    firstText.text = 'Colpisci \n il nemico!';
+function getRocksCallback(pollicinoSprite, sackSprite) {
+  this.pollicino.getRocks(sackSprite);
+}
+
+function hitEnemyCallback(enemySprite, bulletSprite) {
+  let weapon = this.pollicino.weapon;
+  let enemy = this.enemyFactory.findEnemy(enemySprite.id);
+  bulletSprite.kill();
+
+  if (enemy == undefined) return;
+
+  enemy.damageWithRedTint(weapon.damage);
+  if (enemySprite.id == 0 && !enemy.health.isAlive) {
+    this.pollicino.hasCompletedTutorial = true;
   }
-}
 
-function collectRocks(pollicino, sack) {
-  if (takeButton.isDown) {
-    sack.kill();
-    bulletsNumberText.text = weapon.currentBullets;
-    bulletsNumberText.fixedToCamera = true;
-  }
-}
-
-function hitEnemy(enemy, bullet) {
-  enemy.kill();
-  bullet.kill();
-  star.alpha = 1;
-  secondText.alpha = 1;
-}
-
-function touchEnemy(pollicino, enemy) {
-  let game = this;
-  let currentTime = game.time.totalElapsedSeconds();
-
-  if (currentTime - lastOverlapTime >= 2) {
-    pollicino.tint = 0xff0000;
-    game.time.events.add(200, function () {
-      pollicino.tint = 0xffffff;
-    });
-    lastOverlapTime = currentTime;
-    Damage(game);
-  }
-}
-
-function Damage(game) {
-  health = health - 10;
-  if (health <= 0) {
-    pollicino.kill();
-    game.state.start('GameOver');
-  }
-}
-
-function buildFramesArray(animationName, framesCount) {
-  let frames = [];
-
-  for (let i = 1; i <= framesCount; i++) {
-    let frameName = animationName + ' (' + i + ')';
-    frames.push(frameName);
-  }
-  return frames;
-}
-
-function noKeyPressed() {
-  return (
-    !shooter.isDown &&
-    !cursors.left.isDown &&
-    !cursors.right.isDown &&
-    !jumpButton.isDown
-  );
 }
