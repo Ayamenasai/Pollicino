@@ -22,7 +22,7 @@ export class MainUserInterface {
         this.healthBar = game.add.sprite(30, 60, 'healthBar');
         this.healthBar.fixedToCamera = true;
 
-        this.life = game.add.sprite(10, 50, 'heart');
+        this.life = game.add.sprite(10, 48, 'heart');
         this.life.fixedToCamera = true;
 
         this.bulletsNumberText = game.add.text(90, 140, '', {
@@ -31,6 +31,8 @@ export class MainUserInterface {
             fill: '#FFC300'
         });
         this.bulletsNumberText.fixedToCamera = true;
+        this.bulletsNumberText.alpha = 0;
+
     }
 
     update() {
@@ -38,12 +40,8 @@ export class MainUserInterface {
         let weapon = this.pollicino.weapon;
 
         this.healthBar.width = (health.current / health.max) * 250;
-        if (this.pollicino.firstSackCollected) {
-            this.fionda.alpha = 1;
-            this.bulletsNumberText.text = weapon.currentBullets;
-        }
-        if (this.pollicino.hasCompletedTutorial) {
-            this.star.alpha = 1;
-        }
+        this.bulletsNumberText.text = weapon.currentBullets;
+    
+
     }
 }

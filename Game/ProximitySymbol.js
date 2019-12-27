@@ -7,16 +7,18 @@ export class ProximitySymbolFactory{
     }
     createText(textName, x, y, textFormatting, target, minDistance) {
         let text = this.game.add.text(x, y, textName, textFormatting);
-        let symbol = new ProximitySymbol(this.game, text, target, minDistance);
-        this.symbols.push(symbol);
-        return symbol;
+        return this.generateSymbol(this.game, text, target, minDistance);
     }
 
     createSprite(spriteName, x, y, target, minDistance) {
         let sprite = this.game.add.sprite(x, y, spriteName);
-        let symbol = new ProximitySymbol(this.game, sprite, target, minDistance);
-        this.symbols.push(symbol);
-        return symbol;
+        return this.generateSymbol(this.game, sprite, target, minDistance);
+    }
+
+    generateSymbol(game, symbol, target, minDistance) {
+        let s = new ProximitySymbol(game, symbol, target, minDistance);
+        this.symbols.push(s);
+        return s;
     }
 
     update() {

@@ -1,11 +1,14 @@
 import { EnemyFactory } from './Enemy.js';
+import { NPCFactory } from './NPC.js';
+import { EventFactory } from "./Events.js";
 import { Pollicino } from './Pollicino.js';
 import { MainUserInterface } from "./UserInterface.js";
 import { ProximitySymbolFactory } from "./ProximitySymbol.js";
-import { defaultTextFormat, pickupSackText, tutorialCompletedText } from "./Text.js";
+import { defaultTextFormat, pickupSackText, attackText, tutorialCompletedText } from "./Text.js";
+
 
 let friendlyBulletsGroup, enemyGroup, groundGroup, backgroundGroup, sackGroup;
-let mainUserInterface, enemyFactory, symbolFactory, pollicino;
+let eventFactory, mainUserInterface, enemyFactory, symbolFactory, npcFactory, pollicino;
 
 export let GameState = {
   preload: function (game) {
@@ -21,8 +24,8 @@ export let GameState = {
     game.load.spritesheet('background', 'Assets/Backgrounds/back1.png', 1024, 768);
     game.load.spritesheet('background1', 'Assets/Backgrounds/back2.png', 1024, 768);
     game.load.image('background2', 'Assets/Backgrounds/back2.1.png');
-    game.load.image('background2.1', 'Assets/Backgrounds/backVillage.png');
-    game.load.image('background3', 'Assets/Backgrounds/back3.png');
+    game.load.image('background3', 'Assets/Backgrounds/backVillage.png');
+    game.load.image('background4', 'Assets/Backgrounds/back3.png');
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('healthBar', 'Assets/Icons/Heart1.png');
     game.load.image('heart', 'Assets/Icons/Heart.png');
@@ -48,52 +51,84 @@ export let GameState = {
     groundGroup = game.add.group();
     enemyGroup = game.add.group();
 
+    createBackgrounds(game);
+    createTerrain(game);
+
     pollicino = new Pollicino(game, 100, 300, friendlyBulletsGroup);
 
+    mainUserInterface = new MainUserInterface(game, pollicino);
+    eventFactory = new EventFactory(game);
+
     enemyFactory = new EnemyFactory(game, enemyGroup);
-    enemyFactory.create('ladybug', 900, 30, pollicino);
+    let ladybug = enemyFactory.create('ladybug', 1000, 30, pollicino);
+    let bee = enemyFactory.create('bee', 4000,0, pollicino);
+
+    npcFactory = new NPCFactory(game);
+    npcFactory.create('sindaco', 1700, 200, pollicino);
+
 
     symbolFactory = new ProximitySymbolFactory(game);
     let minDistance = 150;
     symbolFactory.createSprite('frecce', 30, 290, pollicino, minDistance);
-    symbolFactory.createSprite('E', 312, 250, pollicino, minDistance);
-    symbolFactory.createSprite('X', 312, 250, pollicino, minDistance);
 
-    symbolFactory.createText(pickupSackText, 410, 280, defaultTextFormat, pollicino, minDistance);
-    symbolFactory.createText(tutorialCompletedText, 410, 0, defaultTextFormat, pollicino, minDistance);
+    let pickupText = game.add.text(410, 280, pickupSackText, defaultTextFormat);
+    let pickupSymbol = game.add.sprite(312, 250, 'E');
 
-    mainUserInterface = new MainUserInterface(game, pollicino);
 
-    sackGroup.create(480, 420, 'sack');
+    let firstSack = sackGroup.create(480, 420, 'sack');
+
+    eventFactory.add('picked up first sack', 'onKill', {
+        sprite: firstSack,
+        execute: function () {
+          let text = game.add.text(410, 180, attackText, defaultTextFormat);
+          let symbol = game.add.sprite (312, 150, 'X');
+          pickupText.kill();
+          pickupSymbol.kill();
+          mainUserInterface.fionda.alpha = 1;
+          mainUserInterface.bulletsNumberText.alpha = 1;
+          text.lifespan = symbol.lifespan = 2000;
+          
+
+        }
+    });
+
+    eventFactory.add('tutorial completed', 'onKill', {
+      sprite: ladybug.sprite,
+      execute: function () {
+        mainUserInterface.star.alpha = 1;
+        let text = game.add.text(512, 50, tutorialCompletedText, defaultTextFormat);
+        text.lifespan = 2000;
+  
+      }
+    });
+
+    eventFactory.add('first level completed', 'onKill', {
+      sprite: bee.sprite,
+      execute: function () {
+        mainUserInterface.polline.alpha = 1;
+      }
+    });
 
     game.world.setBounds(0, 0, 5120, 768);
 
-    createBackgrounds(game);
-    createTerrain(game);
 
 
-    vignetta = game.add.sprite(1600, 150, 'baloon');
-    sindaco = game.add.sprite(1700, 210, 'sindaco');
-    sindaco.animations.add('idleSindaco');
-    sindaco.animations.play('idleSindaco', 3, true);
-    sindacoText = game.add.text(1610, 160, '', {
-      fontFamily: 'Gill Sans',
-      fontSize: '22px',
-      fill: '#000000'
-    });
+
   },
 
   update: function (game) {
     game.physics.arcade.collide(groundGroup, pollicino.sprite);
-    game.physics.arcade.collide(groundGroup, enemyGroup);
+    //game.physics.arcade.collide(groundGroup, enemyGroup);
 
     game.physics.arcade.overlap(pollicino.sprite, sackGroup, getRocksCallback, null, { pollicino });
     game.physics.arcade.overlap(pollicino.sprite, enemyGroup, touchEnemyCallback, null, { pollicino, enemyFactory });
     game.physics.arcade.overlap(enemyGroup, friendlyBulletsGroup, hitEnemyCallback, null, { pollicino, enemyFactory });
 
     enemyFactory.update();
+    npcFactory.update();
     pollicino.update();
     symbolFactory.update();
+    eventFactory.update();
     mainUserInterface.update();
 
     if (pollicino.x < 1024) {
@@ -111,35 +146,22 @@ export let GameState = {
       transition.alpha = 1;
     }
 
-    if (pollicino.x > 1440) {
-      sindaco.alpha = 1;
-      vignetta.alpha = 0;
-      sindacoText.alpha = 0;
-    }
-    if (pollicino.x > 1660) {
-      sindacoText.alpha = 1;
-      sindacoText.text = 'Ciao! \n Benvenuto!';
-      vignetta.alpha = 1;
-    } else {
-      sindacoText.alpha = 0;
-      vignetta.alpha = 0;
-    }
+    
   }
 };
 
 let
   background2,
-  sindaco,
-  vignetta,
-  sindacoText,
   background,
   background1,
+  background3,
   transition;
 
 function createBackgrounds(game) {
   background1 = game.add.sprite(1024, 0, 'background1');
   background1.animations.add('drop');
   background2 = game.add.sprite(2048, 0, 'background2');
+  background3 = game.add.sprite(3042, 0, 'background3');
 
   background = game.add.sprite(0, 0, 'background');
   background.animations.add('light');
@@ -148,6 +170,7 @@ function createBackgrounds(game) {
 
   backgroundGroup.add(background1);
   backgroundGroup.add(background2);
+  backgroundGroup.add(background3);
   backgroundGroup.add(background);
   backgroundGroup.add(transition);
 }
@@ -188,5 +211,9 @@ function hitEnemyCallback(enemySprite, bulletSprite) {
   if (enemySprite.id == 0 && !enemy.health.isAlive) {
     this.pollicino.hasCompletedTutorial = true;
   }
+  if (enemySprite.id == 1 && !enemy.health.isAlive) {
+    this.pollicino.polline = true;
+  }
+
 
 }

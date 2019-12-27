@@ -14,7 +14,7 @@ export class EnemyFactory {
             enemy = new Ladybug(this.game, x, y, this.enemyGroup, target);
         }
         else if (enemyName === "bee") {
-
+            enemy = new Bee(this.game, x, y, this.enemyGroup, target);
         }
         else {
             return;
@@ -23,6 +23,7 @@ export class EnemyFactory {
         this.enemyGroup.add(enemy.sprite);
         this.aliveEnemies[this.idCounter] = enemy;
         this.idCounter++;
+        return enemy;
     }
 
     findEnemy(enemyId) {
@@ -70,6 +71,29 @@ class Ladybug extends Enemy {
     wakeUpNearTarget() {
         let distance = calculateDistance(this.sprite.x, this.target.x);
         if (distance < 500) {
+            this.wakeup = true;
+        }
+    }
+
+}
+class Bee extends Enemy {
+    constructor(game, x, y, collisionGroup, target) {
+        super(game, 'bee', x, y, collisionGroup, 40, new Speed(150,30), 10);
+        this.wakeup = false;
+        this.target = target.sprite;
+
+
+    }
+    update() {
+        this.wakeUpNearTarget();
+        if (this.wakeup) {
+            this.body.velocity.x = (this.sprite.x > this.target.x ? -1 : 1) * this.speed.maxHorizontal;
+        }
+    }
+
+    wakeUpNearTarget() {
+        let distance = calculateDistance(this.sprite.x, this.target.x);
+        if (distance < 600) {
             this.wakeup = true;
         }
     }
