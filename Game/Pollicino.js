@@ -6,7 +6,7 @@ export class Pollicino extends Character {
     constructor(game, x, y, friendlyBulletGroup) {
         super(game, 'pollicino', x, y, new Speed(200, 300), new Health(100));
         this.body.collideWorldBounds = false;
-        this.body.gravity.y = 250;
+        this.body.gravity.y = 350;
         this.body.setSize(30, 148, 20, 5);
         this.sprite.anchor.setTo(0.5);
         this.closestNPC = null;
@@ -49,7 +49,7 @@ export class Pollicino extends Character {
             this.sprite.x = 0;
         }
 
-        if (!this.health.isAlive) {
+        if (!this.health.isAlive || this.sprite.y > 768) {
             this.sprite.kill();
             this.game.state.start('GameOver');
         }

@@ -46,6 +46,9 @@ export let GameState = {
     game.load.image('platform2', 'Assets/Terrain/platform2.png');
     game.load.image('platform3', 'Assets/Terrain/platformMontagna1.png');
     game.load.image('platform4', 'Assets/Terrain/platformMontagna.png');
+    game.load.image('platformStagno', 'Assets/Terrain/platformStagno.png');
+    game.load.image('platformStagno1', 'Assets/Terrain/platformStagno1.png');
+    game.load.image('platformStagno2', 'Assets/Terrain/platformStagno2.png');
     game.load.image('bullets', 'Assets/Icons/rock.png');
   },
 
@@ -142,23 +145,6 @@ export let GameState = {
       pollicino.sprite.x = 6900;
       pollicino.sprite.y = 220;
     }
-
-    if (pollicino.x < 1024) {
-      background.alpha = 1;
-      groundGroup.alpha = 1;
-      background1.alpha = 0.1;
-      transition.alpha = 1;
-    }
-
-    if (pollicino.x > 1024) {
-      game.world.setBounds(0, 0, 4096, 768);
-      background1.animations.play('drop', 4, false);
-      background.alpha = 0.1;
-      background1.alpha = 1;
-      transition.alpha = 1;
-    }
-
-    
   }
 };
 
@@ -207,7 +193,11 @@ function createTerrain(game) {
   groundGroup.add(game.add.sprite(3200, 300, 'platform2'));
   groundGroup.add(game.add.sprite(4100, 300, 'platform2'));
   groundGroup.add(game.add.sprite(6860, 680, 'platform3'));
-  groundGroup.add(game.add.sprite(6120, 700, 'platform4'));
+  groundGroup.add(game.add.sprite(6120, 600, 'platform4'));
+  groundGroup.add(game.add.sprite(4600, 390, 'platformStagno1'));
+  groundGroup.add(game.add.sprite(5320, 370, 'platformStagno'));
+  groundGroup.add(game.add.sprite(5800, 460, 'platformStagno1'));
+  groundGroup.add(game.add.sprite(5000, 500, 'platformStagno2'));
   groundGroup.setAll('body.immovable', true);
 }
 
