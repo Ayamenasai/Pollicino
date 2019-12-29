@@ -36,6 +36,7 @@ export class EnemyFactory {
             enemy.update();
             if (!enemy.health.isAlive) {
                 enemy.sprite.kill();
+                //esplosione da aggiunger
                 delete this.aliveEnemies[id];
             }
         }

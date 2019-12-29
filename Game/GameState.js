@@ -18,14 +18,17 @@ export let GameState = {
       'Assets/Spritesheet/pollicinoAtlas.json'
     );
     game.load.spritesheet('ladybug', 'Assets/Spritesheet/ladybug.png', 516, 403);
-    game.load.image('bee', 'Assets/Personaggi/ape.png');
+    game.load.image('bee', 'Assets/Spritesheet/ape.png');
     game.load.spritesheet('sindaco', 'Assets/Personaggi/sindaco.png', 138, 206);
+    game.load.spritesheet('golem', 'Assets/Personaggi/golem.png', 353.1, 376);
     game.load.image('baloon', 'Assets/Personaggi/vignetta.png');
     game.load.spritesheet('background', 'Assets/Backgrounds/back1.png', 1024, 768);
     game.load.spritesheet('background1', 'Assets/Backgrounds/back2.png', 1024, 768);
     game.load.image('background2', 'Assets/Backgrounds/back2.1.png');
     game.load.image('background3', 'Assets/Backgrounds/backVillage.png');
-    game.load.image('background4', 'Assets/Backgrounds/back3.png');
+    game.load.image('background4', 'Assets/Backgrounds/back3.0.png');
+    game.load.image('background5', 'Assets/Backgrounds/back3.png');
+    game.load.image('background6', 'Assets/Backgrounds/back4.png');
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('healthBar', 'Assets/Icons/Heart1.png');
     game.load.image('heart', 'Assets/Icons/Heart.png');
@@ -41,6 +44,8 @@ export let GameState = {
     game.load.image('platform', 'Assets/Terrain/platform.png');
     game.load.image('platform1', 'Assets/Terrain/platform1.png');
     game.load.image('platform2', 'Assets/Terrain/platform2.png');
+    game.load.image('platform3', 'Assets/Terrain/platformMontagna1.png');
+    game.load.image('platform4', 'Assets/Terrain/platformMontagna.png');
     game.load.image('bullets', 'Assets/Icons/rock.png');
   },
 
@@ -56,15 +61,17 @@ export let GameState = {
 
     pollicino = new Pollicino(game, 100, 300, friendlyBulletsGroup);
 
+
     mainUserInterface = new MainUserInterface(game, pollicino);
     eventFactory = new EventFactory(game);
 
     enemyFactory = new EnemyFactory(game, enemyGroup);
-    let ladybug = enemyFactory.create('ladybug', 1000, 30, pollicino);
+    let ladybug = enemyFactory.create('ladybug', 1024, 30, pollicino);
     let bee = enemyFactory.create('bee', 4000,0, pollicino);
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 200, pollicino);
+    npcFactory.create('golem', 6800, 328, pollicino);
 
 
     symbolFactory = new ProximitySymbolFactory(game);
@@ -109,7 +116,7 @@ export let GameState = {
       }
     });
 
-    game.world.setBounds(0, 0, 5120, 768);
+    game.world.setBounds(0, 0, 10240, 768);
 
 
 
@@ -118,7 +125,6 @@ export let GameState = {
 
   update: function (game) {
     game.physics.arcade.collide(groundGroup, pollicino.sprite);
-    //game.physics.arcade.collide(groundGroup, enemyGroup);
 
     game.physics.arcade.overlap(pollicino.sprite, sackGroup, getRocksCallback, null, { pollicino });
     game.physics.arcade.overlap(pollicino.sprite, enemyGroup, touchEnemyCallback, null, { pollicino, enemyFactory });
@@ -130,6 +136,12 @@ export let GameState = {
     symbolFactory.update();
     eventFactory.update();
     mainUserInterface.update();
+    pollicino.closestNPC = npcFactory.findClosestNPC(pollicino);
+
+    if (game.input.keyboard.justPressed(Phaser.Keyboard.T)) {
+      pollicino.sprite.x = 6900;
+      pollicino.sprite.y = 220;
+    }
 
     if (pollicino.x < 1024) {
       background.alpha = 1;
@@ -155,23 +167,31 @@ let
   background,
   background1,
   background3,
+  background4,
+  background5,
+  background6,
   transition;
 
 function createBackgrounds(game) {
-  background1 = game.add.sprite(1024, 0, 'background1');
-  background1.animations.add('drop');
-  background2 = game.add.sprite(2048, 0, 'background2');
-  background3 = game.add.sprite(3042, 0, 'background3');
-
   background = game.add.sprite(0, 0, 'background');
   background.animations.add('light');
   background.animations.play('light', 4, true);
+  background1 = game.add.sprite(1024, 0, 'background1');
+  background1.animations.add('drop');
+  background2 = game.add.sprite(2048, 0, 'background2');
+  background3 = game.add.sprite(3072, 0, 'background3');
+  background4 = game.add.sprite(4096, 0, 'background4');
+  background5 = game.add.sprite(5120, 0, 'background5');
+  background6 = game.add.sprite(6144, 0, 'background6');
   transition = game.add.sprite(750, 0, 'transition');
 
+  backgroundGroup.add(background);
   backgroundGroup.add(background1);
   backgroundGroup.add(background2);
   backgroundGroup.add(background3);
-  backgroundGroup.add(background);
+  backgroundGroup.add(background4);
+  backgroundGroup.add(background5); 
+  backgroundGroup.add(background6); 
   backgroundGroup.add(transition);
 }
 
@@ -185,6 +205,9 @@ function createTerrain(game) {
   groundGroup.add(game.add.sprite(2100, 500, 'platform2'));
   groundGroup.add(game.add.sprite(2680, 400, 'platform2'));
   groundGroup.add(game.add.sprite(3200, 300, 'platform2'));
+  groundGroup.add(game.add.sprite(4100, 300, 'platform2'));
+  groundGroup.add(game.add.sprite(6860, 680, 'platform3'));
+  groundGroup.add(game.add.sprite(6120, 700, 'platform4'));
   groundGroup.setAll('body.immovable', true);
 }
 

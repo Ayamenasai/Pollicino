@@ -9,7 +9,7 @@ export class Pollicino extends Character {
         this.body.gravity.y = 250;
         this.body.setSize(30, 148, 20, 5);
         this.sprite.anchor.setTo(0.5);
-        
+        this.closestNPC = null;
 
         this.weapon = new Weapon(game, x, y, friendlyBulletGroup);
         this.weapon.bulletSpeed = 300;
@@ -61,6 +61,9 @@ export class Pollicino extends Character {
             !this.jumpButton.isDown) {
             this.sprite.animations.play('idle', 2, true);
             this.body.velocity.x = 0;
+        }
+        if (this.game.input.keyboard.justPressed(Phaser.Keyboard.A) && this.closestNPC != null) {
+            this.closestNPC.interaction();
         }
 
         if (this.shootButton.isDown) {
