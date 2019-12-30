@@ -16,6 +16,9 @@ export class EnemyFactory {
         else if (enemyName === "bee") {
             enemy = new Bee(this.game, x, y, this.enemyGroup, target);
         }
+        else if (enemyName === "fly") {
+            enemy = new Fly(this.game, x, y, this.enemyGroup, target);
+        }
         else {
             return;
         }
@@ -82,7 +85,7 @@ class Bee extends Enemy {
         super(game, 'bee', x, y, collisionGroup, 40, new Speed(150,30), 10);
         this.wakeup = false;
         this.target = target.sprite;
-
+        this.sprite.animations.add('beeFly');
 
     }
     update() {
@@ -90,11 +93,38 @@ class Bee extends Enemy {
         if (this.wakeup) {
             this.body.velocity.x = (this.sprite.x > this.target.x ? -1 : 1) * this.speed.maxHorizontal;
         }
+        this.sprite.animations.play('beeFly', 8, true);
     }
+    
 
     wakeUpNearTarget() {
         let distance = calculateDistance(this.sprite.x, this.target.x);
         if (distance < 600) {
+            this.wakeup = true;
+        }
+    }
+
+}
+class Fly extends Enemy {
+    constructor(game, x, y, collisionGroup, target) {
+        super(game, 'fly', x, y, collisionGroup, 40, new Speed(150, 30), 10);
+        this.wakeup = false;
+        this.target = target.sprite;
+        this.sprite.animations.add('fly');
+
+    }
+    update() {
+        this.wakeUpNearTarget();
+        if (this.wakeup) {
+            this.body.velocity.x = (this.sprite.x > this.target.x ? -1 : 1) * this.speed.maxHorizontal;
+        }
+        this.sprite.animations.play('fly', 5, true);
+    }
+
+
+    wakeUpNearTarget() {
+        let distance = calculateDistance(this.sprite.x, this.target.x);
+        if (distance < 200) {
             this.wakeup = true;
         }
     }
