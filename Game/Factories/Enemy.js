@@ -1,11 +1,13 @@
-import { Character, Health, Speed } from "./Components.js";
-import { calculateDistance } from "./Utils.js";
+import { Character, Health, Speed, GameObject } from "../Components.js";
+import { calculateDistance } from "../Utils.js";
+import { Weapon } from "../Weapon.js";
 
 export class EnemyFactory {
-    constructor(game, enemyGroup) {
+    constructor(game, enemyGroup, enemyBulletsGroup) {
         this.game = game;
         this.aliveEnemies = {};
         this.enemyGroup = enemyGroup;
+        this.enemyBulletsGroup = enemyBulletsGroup;
         this.idCounter = 0;
     }
     create(enemyName, x, y, target) {
@@ -17,7 +19,7 @@ export class EnemyFactory {
             enemy = new Bee(this.game, x, y, this.enemyGroup, target);
         }
         else if (enemyName === "fly") {
-            enemy = new Fly(this.game, x, y, this.enemyGroup, target);
+            enemy = new Fly(this.game, x, y, this.enemyGroup, this.enemyBulletsGroup, target);
         }
         else {
             return;
@@ -38,12 +40,23 @@ export class EnemyFactory {
             let enemy = this.aliveEnemies[id];
             enemy.update();
             if (!enemy.health.isAlive) {
+                new EnemyDeath(this.game, enemy.sprite.x, enemy.sprite.y);
                 enemy.sprite.kill();
-                //esplosione da aggiunger
+
                 delete this.aliveEnemies[id];
             }
         }
     }
+}
+class EnemyDeath extends GameObject{
+    constructor(game, x, y) {
+        super(game, 'explosion', x, y);  
+        this.sprite.animations.add('explosion');
+        this.sprite.lifespan = 1000;
+        this.sprite.animations.play('explosion', 8, true);
+
+    }
+    
 }
 class Enemy extends Character {
     constructor(game, spriteName, x, y, collisionGroup, health, speed, damage) {
@@ -61,6 +74,7 @@ class Ladybug extends Enemy {
         this.target = target.sprite;
         this.body.collideWorldBounds = true;
         this.sprite.animations.add('fly');
+        this.sprite.animations.play('fly', 4, true);
 
 
     }
@@ -69,7 +83,6 @@ class Ladybug extends Enemy {
         if (this.wakeup) {
             this.body.velocity.x = (this.sprite.x > this.target.x ? -1 : 1) * this.speed.maxHorizontal;
         }
-        this.sprite.animations.play('fly', 4, true);
     }
 
     wakeUpNearTarget() {
@@ -86,14 +99,14 @@ class Bee extends Enemy {
         this.wakeup = false;
         this.target = target.sprite;
         this.sprite.animations.add('beeFly');
-
+        this.sprite.animations.play('beeFly', 8, true);
     }
     update() {
         this.wakeUpNearTarget();
         if (this.wakeup) {
             this.body.velocity.x = (this.sprite.x > this.target.x ? -1 : 1) * this.speed.maxHorizontal;
         }
-        this.sprite.animations.play('beeFly', 8, true);
+        
     }
     
 
@@ -106,20 +119,47 @@ class Bee extends Enemy {
 
 }
 class Fly extends Enemy {
-    constructor(game, x, y, collisionGroup, target) {
-        super(game, 'fly', x, y, collisionGroup, 40, new Speed(150, 30), 10);
+    constructor(game, x, y, collisionGroup, enemyBulletsGroup, target) {
+        super(game, 'fly', x, y, collisionGroup, 40, new Speed(400, 0), 5);
         this.wakeup = false;
         this.target = target.sprite;
         this.sprite.animations.add('fly');
-
+        this.sprite.animations.play('fly', 5, true);
+        this.weapon = new Weapon(game, x, y, enemyBulletsGroup, 'poo');
+        this.weapon.maxBullets = this.weapon.currentBullets = 99999;
+        this.weapon.bulletSpeed.maxHorizontal = 0;
+        this.weapon.bulletSpeed.maxVertical = 400;
+        this.weapon.fireRate = 0.85;
+        this.hasLeftPond = false;
+        
     }
+
     update() {
+        
+        this.weapon.trackSprite(this.sprite);
+
         this.wakeUpNearTarget();
         if (this.wakeup) {
             this.body.velocity.x = (this.sprite.x > this.target.x ? -1 : 1) * this.speed.maxHorizontal;
+            let distance = calculateDistance(this.sprite.x, this.target.x);
+            if (distance < 15) {
+                this.weapon.fire();
+            }
+            if (!this.weapon.canShoot()) {
+                this.body.velocity.x = 0;
+            }
+            if (this.sprite.x > 6120 && !this.hasLeftPond) {
+                this.hasLeftPond = true; 
+                this.sprite.lifespan = 8000;
+            }
+            if (this.hasLeftPond) {
+                this.body.velocity.x = -this.speed.maxHorizontal;
+            }
+            
         }
-        this.sprite.animations.play('fly', 5, true);
+        
     }
+
 
 
     wakeUpNearTarget() {

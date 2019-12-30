@@ -1,14 +1,14 @@
-import { EnemyFactory } from './Enemy.js';
-import { NPCFactory } from './NPC.js';
-import { EventFactory } from "./Events.js";
-import { Pollicino } from './Pollicino.js';
-import { MainUserInterface } from "./UserInterface.js";
-import { ProximitySymbolFactory } from "./ProximitySymbol.js";
-import { defaultTextFormat, pickupSackText, attackText, tutorialCompletedText } from "./Text.js";
-import { GroundFactory } from "./Ground.js";
+import { EnemyFactory } from '../Factories/Enemy.js';
+import { NPCFactory } from '../Factories/NPC.js';
+import { EventFactory } from "../Factories/Events.js";
+import { Pollicino } from '../Pollicino.js';
+import { MainUserInterface } from "../UserInterface.js";
+import { ProximitySymbolFactory } from "../Factories/ProximitySymbol.js";
+import { defaultTextFormat, pickupSackText, attackText, tutorialCompletedText } from "../Text.js";
+import { GroundFactory } from "../Factories/Ground.js";
 
 
-let friendlyBulletsGroup, enemyGroup, groundGroup, backgroundGroup, sackGroup;
+let friendlyBulletsGroup, enemyBulletsGroup, enemyGroup, groundGroup, backgroundGroup, sackGroup;
 let eventFactory, mainUserInterface, enemyFactory, symbolFactory, npcFactory, groundFactory, pollicino;
 
 export let GameState = {
@@ -21,6 +21,7 @@ export let GameState = {
     game.load.spritesheet('ladybug', 'Assets/Spritesheet/ladybug.png', 516, 403);
     game.load.spritesheet('bee', 'Assets/Spritesheet/ape.png', 421.8, 431);
     game.load.spritesheet('fly', 'Assets/Spritesheet/mosca.png', 82, 80);
+    game.load.spritesheet('explosion', 'Assets/Spritesheet/explosion.png',598, 262);
     game.load.spritesheet('sindaco', 'Assets/Personaggi/sindaco.png', 138, 206);
     game.load.spritesheet('golem', 'Assets/Personaggi/golem.png', 352, 376);
     game.load.image('baloon', 'Assets/Personaggi/vignetta.png');
@@ -34,6 +35,7 @@ export let GameState = {
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('healthBar', 'Assets/Icons/Heart1.png');
     game.load.image('heart', 'Assets/Icons/Heart.png');
+    game.load.image('poo', 'Assets/Icons/poo.png');
     game.load.image('sack', 'Assets/Icons/sack.png');
     game.load.image('frecce', 'Assets/Icons/frecce.png');
     game.load.image('E', 'Assets/Icons/E.png');
@@ -57,6 +59,7 @@ export let GameState = {
   create: function (game) {
     backgroundGroup = game.add.group();
     sackGroup = game.add.physicsGroup();
+    enemyBulletsGroup = game.add.group();
     friendlyBulletsGroup = game.add.group();
     groundGroup = game.add.group();
     enemyGroup = game.add.group();
@@ -65,16 +68,16 @@ export let GameState = {
     groundFactory = new GroundFactory(game, groundGroup);
     createTerrain(game);
 
-    pollicino = new Pollicino(game, 100, 300, friendlyBulletsGroup);
+    pollicino = new Pollicino(game, 100, 520, friendlyBulletsGroup);
 
 
     mainUserInterface = new MainUserInterface(game, pollicino);
     eventFactory = new EventFactory(game);
 
-    enemyFactory = new EnemyFactory(game, enemyGroup);
+    enemyFactory = new EnemyFactory(game, enemyGroup, enemyBulletsGroup);
     let ladybug = enemyFactory.create('ladybug', 1024, 30, pollicino);
     let bee = enemyFactory.create('bee', 4000, 0, pollicino);
-    enemyFactory.create('fly', 4290, 0, pollicino);
+    enemyFactory.create('fly', 4400, 0, pollicino);
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 200, pollicino);
@@ -101,8 +104,6 @@ export let GameState = {
           mainUserInterface.fionda.alpha = 1;
           mainUserInterface.bulletsNumberText.alpha = 1;
           text.lifespan = symbol.lifespan = 2000;
-          
-
         }
     });
 
@@ -112,7 +113,6 @@ export let GameState = {
         mainUserInterface.star.alpha = 1;
         let text = game.add.text(512, 50, tutorialCompletedText, defaultTextFormat);
         text.lifespan = 2000;
-  
       }
     });
 
@@ -124,10 +124,6 @@ export let GameState = {
     });
 
     game.world.setBounds(0, 0, 10240, 768);
-
-
-
-
   },
 
   update: function (game) {
@@ -135,8 +131,9 @@ export let GameState = {
 
     game.physics.arcade.overlap(pollicino.sprite, sackGroup, getRocksCallback, null, { pollicino });
     game.physics.arcade.overlap(pollicino.sprite, enemyGroup, touchEnemyCallback, null, { pollicino, enemyFactory });
+    game.physics.arcade.overlap(pollicino.sprite, enemyBulletsGroup, getHitCallback, null, { pollicino, enemyFactory });
     game.physics.arcade.overlap(enemyGroup, friendlyBulletsGroup, hitEnemyCallback, null, { pollicino, enemyFactory });
-
+    
     enemyFactory.update();
     groundFactory.update();
     npcFactory.update();
@@ -146,8 +143,12 @@ export let GameState = {
     mainUserInterface.update();
     pollicino.closestNPC = npcFactory.findClosestNPC(pollicino);
 
-    if (game.input.keyboard.justPressed(Phaser.Keyboard.T)) {
-      pollicino.sprite.x = 6900;
+    if (game.input.keyboard.justPressed(Phaser.Keyboard.ONE)) {
+      pollicino.sprite.x = 4500;
+      pollicino.sprite.y = 220;
+    }
+    if (game.input.keyboard.justPressed(Phaser.Keyboard.TWO)) {
+      pollicino.sprite.x = 6000;
       pollicino.sprite.y = 220;
     }
   }
@@ -198,7 +199,7 @@ function createTerrain(game) {
   groundFactory.create("movable", 'platform2', 3200, 300, {isHorizontal: true, range: 100, speed: 100});
   groundFactory.create("static", 'platform2', 3900, 300);
   groundFactory.create("static", 'platform3', 6860, 580);
-  groundFactory.create("movable", 'platform4', 6120, 560, { isHorizontal: false, range: 250, speed: 120 });
+  groundFactory.create("static", 'platform4', 6120, 560);
   groundFactory.create("static", 'platformStagno1', 4360, 430);
   groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 150, speed: 70});
   groundFactory.create("static", 'platformStagno1', 5790, 480);
@@ -215,6 +216,13 @@ function touchEnemyCallback(pollicinoSprite, enemySprite) {
   this.pollicino.damageWithRedTint(enemy.damage);
 }
 
+function getHitCallback(pollicinoSprite, bulletSprite) {
+  let weapon = bulletSprite.weapon;
+  let pollicino = this.pollicino;
+  bulletSprite.kill();
+  pollicino.damageWithRedTint(weapon.damage);
+}
+
 function getRocksCallback(pollicinoSprite, sackSprite) {
   this.pollicino.getRocks(sackSprite);
 }
@@ -227,12 +235,4 @@ function hitEnemyCallback(enemySprite, bulletSprite) {
   if (enemy == undefined) return;
 
   enemy.damageWithRedTint(weapon.damage);
-  if (enemySprite.id == 0 && !enemy.health.isAlive) {
-    this.pollicino.hasCompletedTutorial = true;
-  }
-  if (enemySprite.id == 1 && !enemy.health.isAlive) {
-    this.pollicino.polline = true;
-  }
-
-
 }

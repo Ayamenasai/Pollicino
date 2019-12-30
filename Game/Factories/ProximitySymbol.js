@@ -1,4 +1,4 @@
-import { calculateDistance } from "./Utils.js";
+import { calculateDistance } from "../Utils.js";
 
 export class ProximitySymbolFactory{
     constructor(game) {

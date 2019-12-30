@@ -11,13 +11,14 @@ export class Pollicino extends Character {
         this.sprite.anchor.setTo(0.5);
         this.closestNPC = null;
 
-        this.weapon = new Weapon(game, x, y, friendlyBulletGroup);
-        this.weapon.bulletSpeed = 300;
+        this.weapon = new Weapon(game, x, y, friendlyBulletGroup,'bullets');
+        this.weapon.bulletSpeed.maxHorizontal = 300;
+        this.weapon.bulletSpeed.maxVertical = -Math.random() * 150;
         this.weapon.fireRate = 1;
 
         this.firstSackCollected = false;
         this.hasCompletedTutorial = false;
-        this.invulnerabilityPeriod = 2;
+        this.invulnerabilityPeriod = 1;
 
         game.camera.follow(this.sprite);
 

@@ -1,6 +1,6 @@
-import { sindacoText, NPCTextFormat, golemText } from "./Text.js";
-import { calculateDistance } from "./Utils.js";
-import { GameObject } from "./Components.js";
+import { sindacoText, NPCTextFormat, golemText } from "../Text.js";
+import { calculateDistance } from "../Utils.js";
+import { GameObject } from "../Components.js";
 export class NPCFactory {
     constructor(game) {
         this.game = game;

@@ -1,4 +1,4 @@
-import { GameObject } from "./Components.js";
+import { GameObject } from "../Components.js";
 export class GroundFactory {
     constructor(game, groundGroup) {
         this.game = game;
