@@ -18,10 +18,14 @@ export let GameState = {
       'Assets/Spritesheet/pollicinoAtlas.png',
       'Assets/Spritesheet/pollicinoAtlas.json'
     );
-    game.load.spritesheet('ladybug', 'Assets/Spritesheet/ladybug.png', 516, 403);
+    game.load.atlas(
+      'ladybug',
+      'Assets/Spritesheet/ladybugAtlas.png',
+      'Assets/Spritesheet/ladybugAtlas.json'
+    );
     game.load.spritesheet('bee', 'Assets/Spritesheet/ape.png', 421.8, 431);
     game.load.spritesheet('fly', 'Assets/Spritesheet/mosca.png', 82, 80);
-    game.load.spritesheet('explosion', 'Assets/Spritesheet/explosion.png',598, 262);
+    game.load.spritesheet('explosion', 'Assets/Spritesheet/fumo.png',450, 450);
     game.load.spritesheet('sindaco', 'Assets/Personaggi/sindaco.png', 138, 206);
     game.load.spritesheet('golem', 'Assets/Personaggi/golem.png', 352, 376);
     game.load.image('baloon', 'Assets/Personaggi/vignetta.png');

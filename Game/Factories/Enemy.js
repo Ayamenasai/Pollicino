@@ -1,5 +1,5 @@
 import { Character, Health, Speed, GameObject } from "../Components.js";
-import { calculateDistance } from "../Utils.js";
+import { calculateDistance, buildFramesArray } from "../Utils.js";
 import { Weapon } from "../Weapon.js";
 
 export class EnemyFactory {
@@ -40,7 +40,7 @@ export class EnemyFactory {
             let enemy = this.aliveEnemies[id];
             enemy.update();
             if (!enemy.health.isAlive) {
-                new EnemyDeath(this.game, enemy.sprite.x, enemy.sprite.y);
+                new EnemyDeath(this.game, enemy.sprite.x, enemy.sprite.y );
                 enemy.sprite.kill();
 
                 delete this.aliveEnemies[id];
@@ -52,7 +52,7 @@ class EnemyDeath extends GameObject{
     constructor(game, x, y) {
         super(game, 'explosion', x, y);  
         this.sprite.animations.add('explosion');
-        this.sprite.lifespan = 1000;
+        this.sprite.lifespan = 900;
         this.sprite.animations.play('explosion', 8, true);
 
     }
@@ -73,8 +73,8 @@ class Ladybug extends Enemy {
         this.wakeup = false;
         this.target = target.sprite;
         this.body.collideWorldBounds = true;
-        this.sprite.animations.add('fly');
-        this.sprite.animations.play('fly', 4, true);
+        this.sprite.animations.add('ladybug', buildFramesArray('ladybug', 14));
+        this.sprite.animations.play('ladybug', 14, true);
 
 
     }
@@ -95,7 +95,7 @@ class Ladybug extends Enemy {
 }
 class Bee extends Enemy {
     constructor(game, x, y, collisionGroup, target) {
-        super(game, 'bee', x, y, collisionGroup, 40, new Speed(150,30), 10);
+        super(game, 'bee', x, y, collisionGroup, 40, new Speed(150, 30), 10);
         this.wakeup = false;
         this.target = target.sprite;
         this.sprite.animations.add('beeFly');
