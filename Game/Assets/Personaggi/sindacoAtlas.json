@@ -1,0 +1,231 @@
+{
+  "frames": {
+    "idleSindaco (6)": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 120,
+        "h": 175
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 2,
+        "y": 3,
+        "w": 120,
+        "h": 175
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (3)": {
+      "frame": {
+        "x": 120,
+        "y": 0,
+        "w": 120,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 2,
+        "y": 1,
+        "w": 120,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (5)": {
+      "frame": {
+        "x": 240,
+        "y": 0,
+        "w": 120,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 2,
+        "y": 2,
+        "w": 120,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (7)": {
+      "frame": {
+        "x": 360,
+        "y": 0,
+        "w": 120,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 1,
+        "y": 1,
+        "w": 120,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (1)": {
+      "frame": {
+        "x": 480,
+        "y": 0,
+        "w": 112,
+        "h": 177
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 0,
+        "w": 112,
+        "h": 177
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (2)": {
+      "frame": {
+        "x": 592,
+        "y": 0,
+        "w": 117,
+        "h": 177
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 0,
+        "w": 117,
+        "h": 177
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (4)": {
+      "frame": {
+        "x": 709,
+        "y": 0,
+        "w": 120,
+        "h": 177
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 2,
+        "y": 1,
+        "w": 120,
+        "h": 177
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (9)": {
+      "frame": {
+        "x": 829,
+        "y": 0,
+        "w": 115,
+        "h": 177
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 7,
+        "y": 1,
+        "w": 115,
+        "h": 177
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "idleSindaco (8)": {
+      "frame": {
+        "x": 944,
+        "y": 0,
+        "w": 119,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 3,
+        "y": 0,
+        "w": 119,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 179
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.3",
+    "image": "sindacoAtlas.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1063,
+      "h": 178
+    },
+    "scale": 1
+  }
+}

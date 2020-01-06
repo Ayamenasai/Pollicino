@@ -1,5 +1,5 @@
 import { sindacoText, NPCTextFormat, golemText } from "../Text.js";
-import { calculateDistance } from "../Utils.js";
+import { calculateDistance, buildFramesArray } from "../Utils.js";
 import { GameObject } from "../Components.js";
 export class NPCFactory {
     constructor(game) {
@@ -44,8 +44,8 @@ export class NPCFactory {
 class NPC extends GameObject {
     constructor(game, x, y, spriteName, text, target) {
         super(game, spriteName, x, y);
-        this.baloon = game.add.sprite(x - 60, y - 60, 'baloon');
-        this.associatedText = game.add.text(x - 50, y - 50, text, NPCTextFormat);
+        this.baloon = game.add.sprite(x - 100, y - 80, 'baloon');
+        this.associatedText = game.add.text(x - 80, y -75, text, NPCTextFormat);
         this.associatedText.wordWrap = true;
         this.associatedText.useAdvancedWrap = false;
         this.associatedText.wordWrapWidth = 160;
@@ -62,16 +62,19 @@ class NPC extends GameObject {
         if (this.targetDistance < 90) {
             this.associatedText.alpha = 1;
             this.baloon.alpha = 1;
+          
         }
         else {
             this.associatedText.alpha = 0;
             this.baloon.alpha = 0;
+           
         }
 
     }
     updateBalloon() {
         this.baloon.width = this.associatedText.width + 30; 
         this.baloon.height = this.associatedText.height + 10;
+        
     }
 } 
 
@@ -96,8 +99,8 @@ class NPCWithMultipleText extends NPC {
 class Sindaco extends NPCWithMultipleText {
     constructor(game, x, y, target) {
         super(game, x, y, 'sindaco', sindacoText, target);
-        this.sprite.animations.add('idleSindaco');
-        this.sprite.animations.play('idleSindaco', 3, true);
+        this.sprite.animations.add('idle', buildFramesArray('idleSindaco', 9));
+        this.sprite.animations.play('idle', 9, true);
 
 
     }

@@ -1,16 +1,22 @@
 export let defaultTextFormat = {
-    fontFamily: 'Gill Sans',
-    fontSize: '22px',
-    fill: '#FFDAA1'
+    fontFamily: 'Mirza',
+    fontSize: '24px',
+    fill: '#FFB946'
 };
 export let NPCTextFormat = {
-    fontFamily: 'Gill Sans',
+    fontFamily: 'Mirza',
     fontSize: '18px',
-    fill: '#000000'
+    fill: '#5D5D5D'
+};
+export let buttonsTextFormat = {
+    fontFamily: 'Mirza',
+    fontSize: '22px',
+    fill: '#EFDFDF'
 };
 
-export let pickupSackText = 'Per prendere \nquesto sacchetto!';
-export let attackText = 'Per attaccare il nemico';
+
+export let pickupSackText = 'Per interagire con \ngli oggetti e con \ni personaggi';
+export let attackText = 'Per attaccare \n i nemici';
 export let tutorialCompletedText = 'Tutorial completato!';
 export let sindacoText = [
     'Benvenuto!nella mia città!',
@@ -24,5 +30,7 @@ export let golemText = [
     'Sperando che un giorno qualcuno dei miei simili...',
     'Venisse ad abitarle ma nessuno è mai venuto',
     'Anzi, non ricordo  quando incontrai qualcuno',
-    'Grazie per avermi ascoltato  ti regalo questa pietra'
+    'Sei in viaggio per salvare i tuoi simili?',
+    'Capisco, spero potremo rivederci un giorno',
+    'Grazie per avermi ascoltato...'
 ];

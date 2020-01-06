@@ -1,15 +1,16 @@
 export let FirstRender = {
     preload: function(game){
         game.load.image ('firstRender', 'Assets/Backgrounds/render1.png');
-        game.load.image ('arrow', 'Assets/Icons/arrow.png');
-
+        game.load.image('arrow', 'Assets/Icons/arrow.png');
+        
     },
     create: function(game){
         game.add.sprite( 0, 0,'firstRender');
-        arrow = game.add.sprite( 700, 500,'arrow');
+        arrow = game.add.sprite(860, 600, 'arrow');
         arrow.inputEnabled = true;
         
-        arrow.events.onInputDown.add(Next, {args: game});
+        arrow.events.onInputDown.add(Next, { args: game });
+        
     },
     update: function(game){
 
@@ -19,6 +20,7 @@ export let FirstRender = {
         else{
            arrow.alpha = 1;
         }
+        
     }
 
 };

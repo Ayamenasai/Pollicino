@@ -21,6 +21,9 @@ export class EnemyFactory {
         else if (enemyName === "fly") {
             enemy = new Fly(this.game, x, y, this.enemyGroup, this.enemyBulletsGroup, target);
         }
+        else if (enemyName === "frog") {
+            enemy = new Frog(this.game, x, y, this.enemyGroup, target);
+        }
         else {
             return;
         }
@@ -52,9 +55,9 @@ class EnemyDeath extends GameObject{
     constructor(game, x, y) {
         super(game, 'explosion', x, y);  
         this.sprite.animations.add('explosion');
-        this.sprite.lifespan = 900;
+        this.sprite.lifespan = 880;
         this.sprite.animations.play('explosion', 8, true);
-
+       
     }
     
 }
@@ -69,12 +72,14 @@ class Enemy extends Character {
 
 class Ladybug extends Enemy {
     constructor(game, x, y, collisionGroup, target) {
-        super(game, 'ladybug', x, y, collisionGroup, 30, new Speed(100, 0), 10);
+        super(game, 'ladybug', x, y, collisionGroup, 30, new Speed(130, 0), 10);
         this.wakeup = false;
         this.target = target.sprite;
         this.body.collideWorldBounds = true;
         this.sprite.animations.add('ladybug', buildFramesArray('ladybug', 14));
         this.sprite.animations.play('ladybug', 14, true);
+       
+
 
 
     }
@@ -98,8 +103,9 @@ class Bee extends Enemy {
         super(game, 'bee', x, y, collisionGroup, 40, new Speed(150, 30), 10);
         this.wakeup = false;
         this.target = target.sprite;
-        this.sprite.animations.add('beeFly');
-        this.sprite.animations.play('beeFly', 8, true);
+        this.body.collideWorldBounds = true;
+        this.sprite.animations.add('flying', buildFramesArray('ape', 8));
+        this.sprite.animations.play('flying', 8, true);
     }
     update() {
         this.wakeUpNearTarget();
@@ -118,6 +124,7 @@ class Bee extends Enemy {
     }
 
 }
+
 class Fly extends Enemy {
     constructor(game, x, y, collisionGroup, enemyBulletsGroup, target) {
         super(game, 'fly', x, y, collisionGroup, 40, new Speed(400, 0), 5);
@@ -159,12 +166,35 @@ class Fly extends Enemy {
         }
         
     }
+     wakeUpNearTarget() {
+        let distance = calculateDistance(this.sprite.x, this.target.x);
+        if (distance < 200) {
+            this.wakeup = true;
+        }
+    }
+
+}
+class Frog extends Enemy {
+    constructor(game, x, y, collisionGroup, target) {
+        super(game, 'frog', x, y, collisionGroup, 30, new Speed(130, 0), 20);
+        this.wakeup = false;
+        this.target = target.sprite;
+        this.body.collideWorldBounds = true;
+        this.sprite.animations.add('frog', buildFramesArray('rana', 9));
+        this.sprite.animations.play('frog', 9, true);
 
 
+    }
+    update() {
+        this.wakeUpNearTarget();
+        if (this.wakeup) {
+            this.body.velocity.x = (this.sprite.x > this.target.x ? -1 : 1) * this.speed.maxHorizontal;
+        }
+    }
 
     wakeUpNearTarget() {
         let distance = calculateDistance(this.sprite.x, this.target.x);
-        if (distance < 200) {
+        if (distance < 10) {
             this.wakeup = true;
         }
     }

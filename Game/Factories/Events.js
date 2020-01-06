@@ -12,9 +12,6 @@ export class EventFactory {
         else if (eventName == 'time') {
             event = new TimeEvent(this.game, eventId, args.timeInSeconds, args.execute);
         }
-        else if (eventName == 'pippo') {
-
-        }
         else {
             return;
         }

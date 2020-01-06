@@ -1,15 +1,20 @@
 export let SecondRender = {
     preload: function(game){
         game.load.image ('secondRender', 'Assets/Backgrounds/render2.png');
-        game.load.image ('arrow', 'Assets/Icons/arrow.png');
+        game.load.image('arrow', 'Assets/Icons/arrow.png');
+        game.load.image('arrowLeft', 'Assets/Icons/arrowLeft.png');
+
 
     },
     create: function(game){
         game.add.sprite( 0, 0,'secondRender');
-        arrow = game.add.sprite( 700, 500,'arrow');
+        arrow = game.add.sprite(860, 600, 'arrow');
+        arrowLeft = game.add.sprite(60, 600, 'arrowLeft');
         arrow.inputEnabled = true;
+        arrowLeft.inputEnabled = true;
         
-        arrow.events.onInputDown.add(Next, {args: game});
+        arrow.events.onInputDown.add(Next, { args: game });
+        arrowLeft.events.onInputDown.add(Previous, { args: game });
     },
     update: function(game){
 
@@ -19,10 +24,19 @@ export let SecondRender = {
         else{
            arrow.alpha = 1;
         }
+        if (arrowLeft.input.pointerOver()) {
+            arrowLeft.alpha = 0.5;
+        }
+        else {
+            arrowLeft.alpha = 1;
+        }
     }
 
 };
-let arrow;
+let arrow, arrowLeft;
 function Next(sprite, pointer){
     pointer.game.state.start("Game");
+}
+function Previous(sprite, pointer) {
+    pointer.game.state.start("FirstRender");
 }

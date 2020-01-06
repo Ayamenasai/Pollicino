@@ -6,6 +6,11 @@ export class GameObject{
         game.physics.arcade.enable(this.sprite);
         this.body = this.sprite.body;   
     }
+    playAnimation(animationName) {
+        if (this.sprite.animations.currentAnim.name != animationName) {
+            this.sprite.animations.play(animationName);
+       } 
+    }
 }
 
 export class Character extends GameObject{
