@@ -6,7 +6,7 @@ export let FirstRender = {
     },
     create: function(game){
         game.add.sprite( 0, 0,'firstRender');
-        arrow = game.add.sprite(860, 600, 'arrow');
+        arrow = game.add.sprite(890, 650, 'arrow');
         arrow.inputEnabled = true;
         
         arrow.events.onInputDown.add(Next, { args: game });

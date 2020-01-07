@@ -49,10 +49,11 @@ export let GameState = {
     game.load.spritesheet('background2', 'Assets/Backgrounds/back2.1.png', 1024, 768);
     game.load.spritesheet('background3', 'Assets/Backgrounds/backVillage.png', 1024, 768);
     game.load.image('background4', 'Assets/Backgrounds/back3.0.png');
-    game.load.image('background5', 'Assets/Backgrounds/back3.png');
+    game.load.spritesheet('background5', 'Assets/Backgrounds/back3.png', 1024, 768);
     game.load.image('background6', 'Assets/Backgrounds/back3.1.png');
     game.load.spritesheet('background7', 'Assets/Backgrounds/back4.png',1024, 768);
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
+    game.load.image('grey', 'Assets/Icons/grey.png');
     game.load.image('healthBar', 'Assets/Icons/healthBar.png');
     game.load.image('heart', 'Assets/Icons/Heart.png');
     game.load.image('bava', 'Assets/Icons/bava.png');
@@ -104,7 +105,7 @@ export let GameState = {
     let ladybug = enemyFactory.create('ladybug', 1010, 20, pollicino);
     let bee = enemyFactory.create('bee', 4000, 0, pollicino);
     enemyFactory.create('fly', 4400, 0, pollicino);
-    let frog = enemyFactory.create('frog', 6560, 360, pollicino);
+    let frog = enemyFactory.create('frog', 6760, 360, pollicino);
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 227, pollicino);
@@ -112,11 +113,13 @@ export let GameState = {
 
 
     symbolFactory = new ProximitySymbolFactory(game);
-    let minDistance = 150;
-    symbolFactory.createSprite('frecce', 45, 350, pollicino, minDistance);
+    let minDistance = 80;
+    symbolFactory.createSprite('frecce', 40, 350, pollicino, minDistance);
 
-    let pickupText = game.add.text(410, 258, pickupSackText, buttonsTextFormat);
-    let pickupSymbol = game.add.sprite(330, 250, 'E');
+    let pickupText = game.add.text(410, 245, pickupSackText, buttonsTextFormat);
+    pickupText.fontWeight = "80";
+    let pickupSymbol = game.add.sprite(330, 245, 'E');
+    
 
 
     let firstSack = sackGroup.create(480, 420, 'sack');
@@ -125,7 +128,8 @@ export let GameState = {
         sprite: firstSack,
         execute: function () {
           let text = game.add.text(410, 258, attackText, buttonsTextFormat);
-          let symbol = game.add.sprite (330, 250, 'X');
+          text.fontWeight = "80";
+          let symbol = game.add.sprite(330, 250, 'X');
           pickupText.kill();
           pickupSymbol.kill();
           mainUserInterface.fionda.alpha = 1;
@@ -181,7 +185,7 @@ export let GameState = {
     pollicino.closestNPC = npcFactory.findClosestNPC(pollicino);
 
     if (game.input.keyboard.justPressed(Phaser.Keyboard.ONE)) {
-      pollicino.sprite.x = 4500;
+      pollicino.sprite.x = 1700;
       pollicino.sprite.y = 220;
     }
     if (game.input.keyboard.justPressed(Phaser.Keyboard.TWO)) {
@@ -217,6 +221,8 @@ function createBackgrounds(game) {
   background3.animations.play('drop', 8, true);
   background4 = game.add.sprite(4096, 0, 'background4');
   background5 = game.add.sprite(5120, 0, 'background5');
+  background5.animations.add('pond');
+  background5.animations.play('pond', 8, true);
   background6 = game.add.sprite(6144, 0, 'background6');
   background7 = game.add.sprite(7168, 0, 'background7');
   background7.animations.add('cloud');
@@ -246,7 +252,7 @@ function createTerrain(game) {
   groundFactory.create("movable", 'platform2', 3200, 300, {isHorizontal: true, range: 100, speed: 100});
   groundFactory.create("static", 'platform2', 3900, 300);
   groundFactory.create("static", 'platform3', 7880, 550);
-  groundFactory.create("static", 'platform3', 7200, 430);
+  groundFactory.create("static", 'platform3', 7200, 500);
   groundFactory.create("static", 'platform3', 7600, 430);
   groundFactory.create("static", 'platform4', 6460, 560);
   groundFactory.create("static", 'platformStagno1', 4360, 430);

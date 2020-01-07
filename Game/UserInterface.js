@@ -23,11 +23,16 @@ export class MainUserInterface {
         this.star.fixedToCamera = true;
         this.star.alpha = 0.3;
 
+        this.grey = game.add.sprite(60, 70, 'grey');
+        this.grey.fixedToCamera = true;
+
         this.healthBar = game.add.sprite(60, 70, 'healthBar');
         this.healthBar.fixedToCamera = true;
 
         this.life = game.add.sprite(40, 60, 'heart');
         this.life.fixedToCamera = true;
+
+      
 
         this.bulletsNumberText = game.add.text(110, 140, '', {
             fontFamily: 'Gill Sans',
@@ -45,7 +50,7 @@ export class MainUserInterface {
 
         this.healthBar.width = (health.current / health.max) * 200;
         this.bulletsNumberText.text = weapon.currentBullets;
-    
+        this.grey.width = health.max;
 
     }
 }

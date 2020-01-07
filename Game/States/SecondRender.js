@@ -8,8 +8,8 @@ export let SecondRender = {
     },
     create: function(game){
         game.add.sprite( 0, 0,'secondRender');
-        arrow = game.add.sprite(860, 600, 'arrow');
-        arrowLeft = game.add.sprite(60, 600, 'arrowLeft');
+        arrow = game.add.sprite(890, 650, 'arrow');
+        arrowLeft = game.add.sprite(40, 650, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
         

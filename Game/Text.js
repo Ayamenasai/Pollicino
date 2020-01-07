@@ -1,15 +1,14 @@
 export let defaultTextFormat = {
-    fontFamily: 'Mirza',
+    fontFamily: 'Verdana',
     fontSize: '24px',
     fill: '#FFB946'
 };
 export let NPCTextFormat = {
-    fontFamily: 'Mirza',
+    fontFamily: 'Verdana',
     fontSize: '18px',
-    fill: '#5D5D5D'
+    fill: '#2C2C2C'
 };
 export let buttonsTextFormat = {
-    fontFamily: 'Mirza',
     fontSize: '22px',
     fill: '#EFDFDF'
 };

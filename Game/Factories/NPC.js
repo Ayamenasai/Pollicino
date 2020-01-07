@@ -45,10 +45,11 @@ class NPC extends GameObject {
     constructor(game, x, y, spriteName, text, target) {
         super(game, spriteName, x, y);
         this.baloon = game.add.sprite(x - 100, y - 80, 'baloon');
-        this.associatedText = game.add.text(x - 80, y -75, text, NPCTextFormat);
+        this.associatedText = game.add.text(x -79, y -65, text, NPCTextFormat);
         this.associatedText.wordWrap = true;
+        this.associatedText.lineSpacing = -6;
         this.associatedText.useAdvancedWrap = false;
-        this.associatedText.wordWrapWidth = 160;
+        this.associatedText.wordWrapWidth = 150;
         this.target = target.sprite;
         this.targetDistance = calculateDistance(this.target.x, this.sprite.x);
         this.updateBalloon();
@@ -72,8 +73,8 @@ class NPC extends GameObject {
 
     }
     updateBalloon() {
-        this.baloon.width = this.associatedText.width + 30; 
-        this.baloon.height = this.associatedText.height + 10;
+        this.baloon.width = this.associatedText.width + 40; 
+        this.baloon.height = this.associatedText.height + 40;
         
     }
 } 
