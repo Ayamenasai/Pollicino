@@ -48,7 +48,7 @@ export class MainUserInterface {
         let health = this.pollicino.health;
         let weapon = this.pollicino.weapon;
 
-        this.healthBar.width = (health.current / health.max) * 200;
+        this.healthBar.width = (health.current / health.max) * 180;
         this.bulletsNumberText.text = weapon.currentBullets;
         this.grey.width = health.max;
 

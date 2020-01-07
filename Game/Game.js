@@ -11,4 +11,4 @@ game.state.add("Menu", MenuState);
 game.state.add("FirstRender", FirstRender);
 game.state.add("SecondRender", SecondRender);
 game.state.add("GameOver", GameOver);
-game.state.start("Game");
+game.state.start("Menu");

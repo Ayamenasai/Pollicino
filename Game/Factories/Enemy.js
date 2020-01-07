@@ -72,7 +72,7 @@ class Enemy extends Character {
 
 class Ladybug extends Enemy {
     constructor(game, x, y, collisionGroup, target) {
-        super(game, 'ladybug', x, y, collisionGroup, 30, new Speed(130, 0), 10);
+        super(game, 'ladybug', x, y, collisionGroup, 30, new Speed(150, 0), 10);
         this.wakeup = false;
         this.target = target.sprite;
         this.body.collideWorldBounds = true;
@@ -118,7 +118,7 @@ class Bee extends Enemy {
 
     wakeUpNearTarget() {
         let distance = calculateDistance(this.sprite.x, this.target.x);
-        if (distance < 600) {
+        if (distance < 980) {
             this.wakeup = true;
         }
     }

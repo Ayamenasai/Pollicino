@@ -4,7 +4,7 @@ import { buildFramesArray } from "./Utils.js";
 
 export class Pollicino extends Character {
     constructor(game, x, y, friendlyBulletGroup) {
-        super(game, 'pollicino', x, y, new Speed(168, 300), new Health(200));
+        super(game, 'pollicino', x, y, new Speed(168, 300), new Health(180));
         this.body.collideWorldBounds = false;
         this.body.gravity.y = 370;
         this.body.setSize(30, 148, 20, 8);

@@ -50,7 +50,7 @@ export let GameState = {
     game.load.spritesheet('background3', 'Assets/Backgrounds/backVillage.png', 1024, 768);
     game.load.image('background4', 'Assets/Backgrounds/back3.0.png');
     game.load.spritesheet('background5', 'Assets/Backgrounds/back3.png', 1024, 768);
-    game.load.image('background6', 'Assets/Backgrounds/back3.1.png');
+    game.load.spritesheet('background6', 'Assets/Backgrounds/back3.1.png', 1024, 768);
     game.load.spritesheet('background7', 'Assets/Backgrounds/back4.png',1024, 768);
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('grey', 'Assets/Icons/grey.png');
@@ -224,6 +224,8 @@ function createBackgrounds(game) {
   background5.animations.add('pond');
   background5.animations.play('pond', 8, true);
   background6 = game.add.sprite(6144, 0, 'background6');
+  background6.animations.add('wind');
+  background6.animations.play('wind', 8, true);
   background7 = game.add.sprite(7168, 0, 'background7');
   background7.animations.add('cloud');
   background7.animations.play('cloud', 8, true);
@@ -249,7 +251,7 @@ function createTerrain(game) {
   groundFactory.create("static", 'platform1', 1580, 400);
   groundFactory.create("static", 'platform2', 2100, 500);
   groundFactory.create("static", 'platform2', 2680, 400);
-  groundFactory.create("movable", 'platform2', 3200, 300, {isHorizontal: true, range: 100, speed: 100});
+  groundFactory.create("movable", 'platform2', 3200, 300, {isHorizontal: true, range: 170, speed: 90});
   groundFactory.create("static", 'platform2', 3900, 300);
   groundFactory.create("static", 'platform3', 7880, 550);
   groundFactory.create("static", 'platform3', 7200, 500);

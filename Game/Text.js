@@ -18,18 +18,23 @@ export let pickupSackText = 'Per interagire con \ngli oggetti e con \ni personag
 export let attackText = 'Per attaccare \n i nemici';
 export let tutorialCompletedText = 'Tutorial completato!';
 export let sindacoText = [
-    'Benvenuto!nella mia città!',
-    'Io sono il sindaco',
-    "Un'ape ci sta tormentando da giorni",
-    'Fai attenzione lungo il tuo cammino!'
+    'Ciao! Benvenuto nel mio villaggio',
+    'Io sono il sindaco. Sei di passaggio?',
+    "Sappi che un'ape sta portando un po' di scompiglio",
+    'Oh! I miei poveri concittadini...',
+    'Sigh...Fai attenzione lungo il tuo cammino!',
+    '...'
 ];
 export let golemText = [
     'Ciao io sono il golem di questa montagna', 
-    'Le case che vedi qua intorno le ho costruite io',
-    'Sperando che un giorno qualcuno dei miei simili...',
-    'Venisse ad abitarle ma nessuno è mai venuto',
-    'Anzi, non ricordo  quando incontrai qualcuno',
-    'Sei in viaggio per salvare i tuoi simili?',
-    'Capisco, spero potremo rivederci un giorno',
-    'Grazie per avermi ascoltato...'
+    'Sono qui da molto tempo...',
+    'Ho costruito questo villaggio anni orsono,',
+    'nella speranza che i miei simili venissero ad abitarlo',
+    'Purtroppo non è mai venuto nessuno.',
+    'Mi sento tanto solo...',
+    'Mi fa piacere averti incontrato',
+    'Oh, devi aiutare qualcuno?',
+    'Credo che questa pianta ti saprà aiutare',
+    'Spero di rivederti un giorno, buon viaggio!',
+    '...'
 ];
