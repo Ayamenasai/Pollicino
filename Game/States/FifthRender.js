@@ -8,8 +8,8 @@ export let FifthRender = {
     },
     create: function (game) {
         game.add.sprite(0, 0, 'fifthRender');
-        arrow = game.add.sprite(890, 650, 'arrow');
-        arrowLeft = game.add.sprite(60, 650, 'arrowLeft');
+        arrow = game.add.sprite(820, 690, 'arrow');
+        arrowLeft = game.add.sprite(340, 690, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
 

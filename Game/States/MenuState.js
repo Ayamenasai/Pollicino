@@ -1,28 +1,70 @@
 export let MenuState = {
     preload: function(game){
-        game.load.image ('cover', 'Assets/Backgrounds/cover.png');
-        game.load.image ('icon', 'Assets/Icons/playIcon.png');
+        game.load.image ('cover', 'Assets/Backgrounds/cover1.png');
+        game.load.image('icon', 'Assets/Icons/storia.png');
+        game.load.image('play', 'Assets/Icons/gioca.png');
+        game.load.image('crediti', 'Assets/Icons/crediti.png');
+        game.load.image('extra', 'Assets/Icons/extra.png');
+
+
+
 
     },
     create: function(game){
         game.add.sprite( 0, 0,'cover');
-        icon = game.add.sprite( 740, 169,'icon');
-        icon.inputEnabled = true;
+        storyIcon = game.add.sprite(650, 300, 'icon');
+        playIcon = game.add.sprite(690, 470, 'play');
+        creditsIcon = game.add.sprite(690, 667, 'crediti');
+        extraIcon = game.add.sprite(620, 570, 'extra');
+        playIcon.inputEnabled = true;
+        creditsIcon.inputEnabled = true;
+        storyIcon.inputEnabled = true;
+        extraIcon.inputEnabled = true;
         
-        icon.events.onInputDown.add(GoToGame, {args: game});
+        storyIcon.events.onInputDown.add(GoToStory, { args: game });
+        playIcon.events.onInputDown.add(GoToGame, { args: game });
+        creditsIcon.events.onInputDown.add(GoToCredits, { args: game });
+        extraIcon.events.onInputDown.add(GoToExtra, { args: game });
     },
     update: function(game){
 
-        if (icon.input.pointerOver()) {
-           icon.alpha = 0.5;
+        if (storyIcon.input.pointerOver()) {
+            storyIcon.alpha = 0.5;
         }
         else{
-           icon.alpha = 1;
+            storyIcon.alpha = 1;
+        }
+        if (playIcon.input.pointerOver()) {
+            playIcon.alpha = 0.5;
+        }
+        else {
+            playIcon.alpha = 1;
+        }
+        if (creditsIcon.input.pointerOver()) {
+            creditsIcon.alpha = 0.5;
+        }
+        else {
+            creditsIcon.alpha = 1;
+        }
+        if (extraIcon.input.pointerOver()) {
+            extraIcon.alpha = 0.5;
+        }
+        else {
+            extraIcon.alpha = 1;
         }
     }
 
 };
-let icon;
-function GoToGame(sprite, pointer){
+let storyIcon, playIcon, creditsIcon, extraIcon;
+function GoToStory(sprite, pointer){
     pointer.game.state.start("FirstRender");
+}
+function GoToGame(sprite, pointer) {
+    pointer.game.state.start("Game");
+}
+function GoToCredits(sprite, pointer) {
+    pointer.game.state.start("Credits");
+}
+function GoToExtra(sprite, pointer) {
+    pointer.game.state.start("Extra");
 }
