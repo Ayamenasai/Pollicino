@@ -38,11 +38,15 @@ export let GameState = {
       'Assets/Personaggi/sindacoAtlas.png',
       'Assets/Personaggi/sindacoAtlas.json'
     );
+    game.load.atlas(
+      'golem',
+      'Assets/Personaggi/golem.png',
+      'Assets/Personaggi/golem.json'
+    );
     
     game.load.audio('relax', 'Assets/Sound/relax.mp3');
     game.load.spritesheet('fly', 'Assets/Spritesheet/mosca.png', 82, 80);
     game.load.spritesheet('explosion', 'Assets/Spritesheet/fumo.png',425, 425);
-    game.load.spritesheet('golem', 'Assets/Personaggi/golem.png', 352, 376);
     game.load.image('baloon', 'Assets/Personaggi/vignetta.png');
     game.load.spritesheet('background', 'Assets/Backgrounds/back1.png', 1024, 768);
     game.load.spritesheet('background1', 'Assets/Backgrounds/back2.png', 1024, 768);
@@ -71,6 +75,7 @@ export let GameState = {
     game.load.image('platform1', 'Assets/Terrain/platform1.png');
     game.load.image('platform2', 'Assets/Terrain/platform2.png');
     game.load.image('platform3', 'Assets/Terrain/platformMontagna1.png');
+    game.load.image('platform5', 'Assets/Terrain/platformMontagna2.png');
     game.load.image('platform4', 'Assets/Terrain/platformBoss.png');
     game.load.image('platformStagno', 'Assets/Terrain/platformStagno.png');
     game.load.image('platformStagno1', 'Assets/Terrain/platformStagno1.png');
@@ -105,11 +110,11 @@ export let GameState = {
     let ladybug = enemyFactory.create('ladybug', 1010, 20, pollicino);
     let bee = enemyFactory.create('bee', 4000, 0, pollicino);
     enemyFactory.create('fly', 4400, 0, pollicino);
-    let frog = enemyFactory.create('frog', 6760, 360, pollicino);
+    let frog = enemyFactory.create('frog', 6460, 360, pollicino);
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 227, pollicino);
-    npcFactory.create('golem', 7800, 190, pollicino);
+    npcFactory.create('golem', 7800, 110, pollicino);
 
 
     symbolFactory = new ProximitySymbolFactory(game);
@@ -253,15 +258,15 @@ function createTerrain(game) {
   groundFactory.create("static", 'platform2', 2680, 400);
   groundFactory.create("movable", 'platform2', 3200, 300, {isHorizontal: true, range: 170, speed: 90});
   groundFactory.create("static", 'platform2', 3900, 300);
-  groundFactory.create("static", 'platform3', 7880, 550);
+  groundFactory.create("static", 'platform3', 7880, 598);
   groundFactory.create("static", 'platform3', 7200, 500);
-  groundFactory.create("static", 'platform3', 7600, 430);
+  groundFactory.create("static", 'platform5', 7620, 430);
   groundFactory.create("static", 'platform4', 6460, 560);
   groundFactory.create("static", 'platformStagno1', 4360, 430);
   groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 150, speed: 70});
   groundFactory.create("static", 'platformStagno1', 5790, 480);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
-  groundFactory.create("movable", 'platformStagno2', 6200, 580,{ isHorizontal: true, range: 150, speed: 60 });
+  groundFactory.create("movable", 'platformStagno2', 6200, 580,{ isHorizontal: false, range: 150, speed: 60 });
   groundFactory.create("static", 'platformStagno2', 5070, 500);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
 }

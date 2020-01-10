@@ -1,6 +1,6 @@
 export let defaultTextFormat = {
     fontFamily: 'Verdana',
-    fontSize: '24px',
+    fontSize: '22px',
     fill: '#FFB946'
 };
 export let NPCTextFormat = {

@@ -1,215 +1,215 @@
 {
   "frames": {
-    "rana (1)": {
+    "golem (1)": {
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (2)": {
+    "golem (2)": {
       "frame": {
-        "x": 613,
+        "x": 472,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (3)": {
+    "golem (3)": {
       "frame": {
-        "x": 1226,
-        "y": 0,
-        "w": 613,
-        "h": 242
+        "x": 0,
+        "y": 507,
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (4)": {
+    "golem (4)": {
       "frame": {
-        "x": 0,
-        "y": 242,
-        "w": 613,
-        "h": 242
+        "x": 472,
+        "y": 507,
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (5)": {
+    "golem (5)": {
       "frame": {
-        "x": 613,
-        "y": 242,
-        "w": 613,
-        "h": 242
+        "x": 944,
+        "y": 0,
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (6)": {
+    "golem (6)": {
       "frame": {
-        "x": 1226,
-        "y": 242,
-        "w": 613,
-        "h": 242
+        "x": 944,
+        "y": 507,
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (7)": {
+    "golem (7)": {
       "frame": {
         "x": 0,
-        "y": 484,
-        "w": 613,
-        "h": 242
+        "y": 1014,
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (8)": {
+    "golem (8)": {
       "frame": {
-        "x": 613,
-        "y": 484,
-        "w": 613,
-        "h": 242
+        "x": 472,
+        "y": 1014,
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "rana (9)": {
+    "golem (9)": {
       "frame": {
-        "x": 1226,
-        "y": 484,
-        "w": 613,
-        "h": 242
+        "x": 944,
+        "y": 1014,
+        "w": 472,
+        "h": 507
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "sourceSize": {
-        "w": 613,
-        "h": 242
+        "w": 472,
+        "h": 507
       },
       "pivot": {
         "x": 0.5,
@@ -220,11 +220,11 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.3",
-    "image": "rana.png",
+    "image": "golem.png",
     "format": "RGBA8888",
     "size": {
-      "w": 1839,
-      "h": 726
+      "w": 1416,
+      "h": 1521
     },
     "scale": 1
   }

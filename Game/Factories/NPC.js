@@ -109,7 +109,7 @@ class Sindaco extends NPCWithMultipleText {
 class Golem extends NPCWithMultipleText {
     constructor(game, x, y, target) {
         super(game, x, y, 'golem', golemText, target);
-        this.sprite.animations.add('idleGolem');
+        this.sprite.animations.add('idleGolem', buildFramesArray('golem', 9));
         this.sprite.animations.play('idleGolem', 9, true);
 
 
