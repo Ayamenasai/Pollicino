@@ -18,7 +18,9 @@ export class NPCFactory {
             return;
         }
         this.NPCS.push(NPC);
+        return NPC;
     }
+
     update() {
         for (let i = 0; i < this.NPCS.length; i++) {
             let NPC = this.NPCS[i];
@@ -28,10 +30,10 @@ export class NPCFactory {
     findClosestNPC(target) {
         let closestNPC = null;
         let minDistance = null;
-        for (let i = 0; i < this.NPCS.length; i++){
+        for (let i = 0; i < this.NPCS.length; i++) {
             let NPC = this.NPCS[i];
             let distance = calculateDistance(target.sprite.x, NPC.sprite.x);
-        
+
             if (minDistance == null || distance < minDistance) {
                 minDistance = distance;
                 closestNPC = NPC;
@@ -45,7 +47,7 @@ class NPC extends GameObject {
     constructor(game, x, y, spriteName, text, target) {
         super(game, spriteName, x, y);
         this.baloon = game.add.sprite(x - 100, y - 80, 'baloon');
-        this.associatedText = game.add.text(x -79, y -65, text, NPCTextFormat);
+        this.associatedText = game.add.text(x - 79, y - 65, text, NPCTextFormat);
         this.associatedText.wordWrap = true;
         this.associatedText.lineSpacing = -6;
         this.associatedText.useAdvancedWrap = false;
@@ -56,35 +58,35 @@ class NPC extends GameObject {
 
     }
     interaction() {
-        
+
     }
     update() {
         this.targetDistance = calculateDistance(this.target.x, this.sprite.x);
         if (this.targetDistance < 90) {
             this.associatedText.alpha = 1;
             this.baloon.alpha = 1;
-          
+
         }
         else {
             this.associatedText.alpha = 0;
             this.baloon.alpha = 0;
-           
+
         }
 
     }
     updateBalloon() {
-        this.baloon.width = this.associatedText.width + 40; 
+        this.baloon.width = this.associatedText.width + 40;
         this.baloon.height = this.associatedText.height + 40;
-        
+
     }
-} 
+}
 
 class NPCWithMultipleText extends NPC {
     constructor(game, x, y, spriteName, textList, target) {
-        super(game, x, y, spriteName, textList[0],target);
+        super(game, x, y, spriteName, textList[0], target);
         this.textList = textList;
         this.currentElement = 0;
-        
+
     }
     interaction() {
         if (this.currentElement < this.textList.length - 1
@@ -94,7 +96,7 @@ class NPCWithMultipleText extends NPC {
             this.associatedText.text = text;
             this.updateBalloon();
         }
-       
+
     }
 }
 class Sindaco extends NPCWithMultipleText {

@@ -11,7 +11,7 @@ export class Pollicino extends Character {
         this.sprite.anchor.setTo(0.5);
         this.closestNPC = null;
 
-        this.weapon = new Weapon(game, x, y, friendlyBulletGroup,'bullets');
+        this.weapon = new Weapon(game, x, y, friendlyBulletGroup, 'bullets');
         this.weapon.bulletSpeed.maxHorizontal = 300;
         this.weapon.bulletSpeed.maxVertical = -Math.random() * 100;
         this.weapon.fireRate = 1;
@@ -60,7 +60,7 @@ export class Pollicino extends Character {
         if (!this.cursorButton.left.isDown &&
             !this.cursorButton.right.isDown &&
             !this.jumpButton.isDown) {
-            
+
             this.body.velocity.x = 0;
             if (!this.isThrowingRocks()) {
                 this.playAnimation('idleR');
@@ -70,7 +70,7 @@ export class Pollicino extends Character {
             this.closestNPC.interaction();
         }
 
-        if (this.shootButton.isDown) {
+        if (this.shootButton.isDown && this.weapon.canShoot()) {
             this.playAnimation('rockR');
             this.weapon.fire();
         }

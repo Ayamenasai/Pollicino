@@ -12,6 +12,9 @@ export class EventFactory {
         else if (eventName == 'time') {
             event = new TimeEvent(this.game, eventId, args.timeInSeconds, args.execute);
         }
+        else if (eventName == 'finishTalking') {
+            event = new FinishTalkingEvent(this.game, eventId, args.NPCWithMultipleText, args.execute);
+        }
         else {
             return;
         }
@@ -61,7 +64,7 @@ class OnKillEvent extends Event {
     }
 }
 
-class TimeEvent extends Event{
+class TimeEvent extends Event {
     constructor(game, eventId, timeInSeconds, execute) {
         super(game, eventId);
         this.timeInSeconds = timeInSeconds;
@@ -74,4 +77,16 @@ class TimeEvent extends Event{
         return condition;
     }
 
+}
+class FinishTalkingEvent extends Event {
+    constructor(game, eventId, NPCWithMultipleText, execute) {
+        super(game, eventId);
+        this.NPCWithMultipleText = NPCWithMultipleText;
+        this.execute = execute;
+
+    }
+    checkCondition() {
+        let condition = this.NPCWithMultipleText.currentElement >= this.NPCWithMultipleText.textList.length - 1;
+        return condition;
+    }
 }

@@ -43,10 +43,10 @@ export let GameState = {
       'Assets/Personaggi/golem.png',
       'Assets/Personaggi/golem.json'
     );
-    
+
     game.load.audio('relax', 'Assets/Sound/relax.mp3');
     game.load.spritesheet('fly', 'Assets/Spritesheet/mosca.png', 82, 80);
-    game.load.spritesheet('explosion', 'Assets/Spritesheet/fumo.png',425, 425);
+    game.load.spritesheet('explosion', 'Assets/Spritesheet/fumo.png', 425, 425);
     game.load.image('baloon', 'Assets/Personaggi/vignetta.png');
     game.load.spritesheet('background', 'Assets/Backgrounds/back1.png', 1024, 768);
     game.load.spritesheet('background1', 'Assets/Backgrounds/back2.png', 1024, 768);
@@ -55,7 +55,7 @@ export let GameState = {
     game.load.image('background4', 'Assets/Backgrounds/back3.0.png');
     game.load.spritesheet('background5', 'Assets/Backgrounds/back3.png', 1024, 768);
     game.load.spritesheet('background6', 'Assets/Backgrounds/back3.1.png', 1024, 768);
-    game.load.spritesheet('background7', 'Assets/Backgrounds/back4.png',1024, 768);
+    game.load.spritesheet('background7', 'Assets/Backgrounds/back4.png', 1024, 768);
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('grey', 'Assets/Icons/grey.png');
     game.load.image('healthBar', 'Assets/Icons/healthBar.png');
@@ -80,6 +80,7 @@ export let GameState = {
     game.load.image('platformStagno', 'Assets/Terrain/platformStagno.png');
     game.load.image('platformStagno1', 'Assets/Terrain/platformStagno1.png');
     game.load.image('platformStagno2', 'Assets/Terrain/platformStagno2.png');
+    game.load.image('block', 'Assets/Terrain/block.png');
     game.load.image('bullets', 'Assets/Icons/rock.png');
   },
 
@@ -114,7 +115,7 @@ export let GameState = {
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 227, pollicino);
-    npcFactory.create('golem', 7800, 110, pollicino);
+    let golem = npcFactory.create('golem', 7800, 110, pollicino);
 
 
     symbolFactory = new ProximitySymbolFactory(game);
@@ -124,25 +125,25 @@ export let GameState = {
     let pickupText = game.add.text(410, 245, pickupSackText, buttonsTextFormat);
     pickupText.fontWeight = "80";
     let pickupSymbol = game.add.sprite(330, 245, 'E');
-    
+
 
 
     let firstSack = sackGroup.create(480, 420, 'sack');
 
     eventFactory.add('picked up first sack', 'onKill', {
-        sprite: firstSack,
-        execute: function () {
-          let text = game.add.text(410, 258, attackText, buttonsTextFormat);
-          text.fontWeight = "80";
-          let symbol = game.add.sprite(330, 250, 'X');
-          pickupText.kill();
-          pickupSymbol.kill();
-          mainUserInterface.fionda.alpha = 1;
-          mainUserInterface.bulletsNumberText.alpha = 1;
-          text.lifespan = symbol.lifespan = 2000;
+      sprite: firstSack,
+      execute: function () {
+        let text = game.add.text(410, 258, attackText, buttonsTextFormat);
+        text.fontWeight = "80";
+        let symbol = game.add.sprite(330, 250, 'X');
+        pickupText.kill();
+        pickupSymbol.kill();
+        mainUserInterface.fionda.alpha = 1;
+        mainUserInterface.bulletsNumberText.alpha = 1;
+        text.lifespan = symbol.lifespan = 2000;
       }
-        
-        
+
+
     });
 
     eventFactory.add('tutorial completed', 'onKill', {
@@ -158,18 +159,24 @@ export let GameState = {
       sprite: bee.sprite,
       execute: function () {
         mainUserInterface.polline.alpha = 1;
-       
+
       }
     });
     eventFactory.add('second level completed', 'onKill', {
-    sprite: frog.sprite,
-    execute: function () {
-    mainUserInterface.bava.alpha = 1;
+      sprite: frog.sprite,
+      execute: function () {
+        mainUserInterface.bava.alpha = 1;
 
       }
     });
+    eventFactory.add('Golem finish talking', 'finishTalking', {
+      NPCWithMultipleText: golem,
+      execute: function () {
+        mainUserInterface.star.alpha = 0.5;
+        block.sprite.kill();
+      }
+    });
 
-   
   },
 
   update: function (game) {
@@ -179,7 +186,7 @@ export let GameState = {
     game.physics.arcade.overlap(pollicino.sprite, enemyGroup, touchEnemyCallback, null, { pollicino, enemyFactory });
     game.physics.arcade.overlap(pollicino.sprite, enemyBulletsGroup, getHitCallback, null, { pollicino, enemyFactory });
     game.physics.arcade.overlap(enemyGroup, friendlyBulletsGroup, hitEnemyCallback, null, { pollicino, enemyFactory });
-    
+
     enemyFactory.update();
     groundFactory.update();
     npcFactory.update();
@@ -209,6 +216,7 @@ let
   background5,
   background6,
   background7,
+  block,
   transition;
 
 function createBackgrounds(game) {
@@ -241,9 +249,9 @@ function createBackgrounds(game) {
   backgroundGroup.add(background2);
   backgroundGroup.add(background3);
   backgroundGroup.add(background4);
-  backgroundGroup.add(background5); 
-  backgroundGroup.add(background6); 
-  backgroundGroup.add(background7); 
+  backgroundGroup.add(background5);
+  backgroundGroup.add(background6);
+  backgroundGroup.add(background7);
   backgroundGroup.add(transition);
 }
 
@@ -256,19 +264,20 @@ function createTerrain(game) {
   groundFactory.create("static", 'platform1', 1580, 400);
   groundFactory.create("static", 'platform2', 2100, 500);
   groundFactory.create("static", 'platform2', 2680, 400);
-  groundFactory.create("movable", 'platform2', 3200, 300, {isHorizontal: true, range: 170, speed: 90});
+  groundFactory.create("movable", 'platform2', 3200, 300, { isHorizontal: true, range: 170, speed: 90 });
   groundFactory.create("static", 'platform2', 3900, 300);
   groundFactory.create("static", 'platform3', 7880, 598);
   groundFactory.create("static", 'platform3', 7200, 500);
   groundFactory.create("static", 'platform5', 7620, 430);
   groundFactory.create("static", 'platform4', 6460, 560);
   groundFactory.create("static", 'platformStagno1', 4360, 430);
-  groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 150, speed: 70});
+  groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 150, speed: 70 });
   groundFactory.create("static", 'platformStagno1', 5790, 480);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
-  groundFactory.create("movable", 'platformStagno2', 6200, 580,{ isHorizontal: false, range: 150, speed: 60 });
+  groundFactory.create("movable", 'platformStagno2', 6200, 580, { isHorizontal: false, range: 150, speed: 60 });
   groundFactory.create("static", 'platformStagno2', 5070, 500);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
+  block = groundFactory.create("static", 'block', 7820, 200);
 }
 
 function touchEnemyCallback(pollicinoSprite, enemySprite) {
