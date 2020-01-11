@@ -1,13 +1,15 @@
 export let Credits = {
     preload: function (game) {
+        game.load.image('cover', 'Assets/Backgrounds/coverCredits.png');
         game.load.image('credits', 'Assets/Backgrounds/credits.png');
         game.load.image('arrowLeft', 'Assets/Icons/arrowLeft.png');
  
 
     },
     create: function (game) {
-        game.add.sprite(0, 0, 'credits');
-        arrowLeft = game.add.sprite(20, 690, 'arrowLeft');
+        game.add.sprite(20, 0, 'cover');
+        game.add.sprite(70, 60, 'credits');
+        arrowLeft = game.add.sprite(340, 690, 'arrowLeft');
         arrowLeft.inputEnabled = true;
         arrowLeft.events.onInputDown.add(Previous, { args: game });
     },

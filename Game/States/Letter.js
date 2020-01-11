@@ -1,17 +1,15 @@
-export let FifthRender = {
+export let Letter = {
     preload: function (game) {
-        game.load.image('fifthRender', 'Assets/Backgrounds/render5.png');
-        game.load.image('pergamena', 'Assets/Backgrounds/pergamena5.png');
+        game.load.image('pergamena', 'Assets/Backgrounds/letteraReale.png');
         game.load.image('arrow', 'Assets/Icons/arrow.png');
         game.load.image('arrowLeft', 'Assets/Icons/arrowLeft.png');
 
 
     },
     create: function (game) {
-        game.add.sprite(0, 0, 'fifthRender');
-        game.add.sprite(280, 550, 'pergamena');
-        arrow = game.add.sprite(860, 700, 'arrow');
-        arrowLeft = game.add.sprite(360, 700, 'arrowLeft');
+        game.add.sprite(0, 0, 'pergamena');
+        arrow = game.add.sprite(810, 660, 'arrow');
+        arrowLeft = game.add.sprite(110, 660, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
 
@@ -37,8 +35,8 @@ export let FifthRender = {
 };
 let arrow, arrowLeft;
 function Next(sprite, pointer) {
-    pointer.game.state.start("Letter");
+    pointer.game.state.start("Game");
 }
 function Previous(sprite, pointer) {
-    pointer.game.state.start("FourthRender");
+    pointer.game.state.start("FifthRender");
 }

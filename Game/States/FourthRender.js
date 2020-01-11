@@ -1,6 +1,7 @@
 export let FourthRender = {
     preload: function (game) {
         game.load.image('fourthRender', 'Assets/Backgrounds/render4.png');
+        game.load.image('pergamena', 'Assets/Backgrounds/pergamena4.png');
         game.load.image('arrow', 'Assets/Icons/arrow.png');
         game.load.image('arrowLeft', 'Assets/Icons/arrowLeft.png');
 
@@ -8,8 +9,9 @@ export let FourthRender = {
     },
     create: function (game) {
         game.add.sprite(0, 0, 'fourthRender');
-        arrow = game.add.sprite(820, 690, 'arrow');
-        arrowLeft = game.add.sprite(340, 690, 'arrowLeft');
+        game.add.sprite(280, 550, 'pergamena');
+        arrow = game.add.sprite(860, 700, 'arrow');
+        arrowLeft = game.add.sprite(360, 700, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
 

@@ -5,17 +5,13 @@ export let MenuState = {
         game.load.image('play', 'Assets/Icons/gioca.png');
         game.load.image('crediti', 'Assets/Icons/crediti.png');
         game.load.image('extra', 'Assets/Icons/extra.png');
-
-
-
-
     },
     create: function(game){
         game.add.sprite( 0, 0,'cover');
-        storyIcon = game.add.sprite(650, 300, 'icon');
-        playIcon = game.add.sprite(690, 470, 'play');
+        storyIcon = game.add.sprite(633, 276, 'icon');
+        playIcon = game.add.sprite(690, 456, 'play');
         creditsIcon = game.add.sprite(690, 667, 'crediti');
-        extraIcon = game.add.sprite(620, 570, 'extra');
+        extraIcon = game.add.sprite(600, 562, 'extra');
         playIcon.inputEnabled = true;
         creditsIcon.inputEnabled = true;
         storyIcon.inputEnabled = true;

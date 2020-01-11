@@ -1,15 +1,15 @@
 export let FirstRender = {
     preload: function(game){
         game.load.image('firstRender', 'Assets/Backgrounds/render1.png');
-        game.load.image('pergamena', 'Assets/Backgrounds/pergamenaRender.png');
+        game.load.image('pergamena', 'Assets/Backgrounds/pergamena1.png');
         game.load.image('arrow', 'Assets/Icons/arrow.png');
         game.load.image('arrowLeft', 'Assets/Icons/arrowLeft.png');
     },
     create: function(game){
         game.add.sprite(0, 0, 'firstRender');
         game.add.sprite(280, 550, 'pergamena');
-        arrow = game.add.sprite(820, 690, 'arrow');
-        arrowLeft = game.add.sprite(340, 690, 'arrowLeft');
+        arrow = game.add.sprite(860, 700, 'arrow');
+        arrowLeft = game.add.sprite(360, 700, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
         arrow.events.onInputDown.add(Next, { args: game });
