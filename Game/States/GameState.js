@@ -48,14 +48,15 @@ export let GameState = {
     game.load.spritesheet('fly', 'Assets/Spritesheet/mosca.png', 82, 80);
     game.load.spritesheet('explosion', 'Assets/Spritesheet/fumo.png', 425, 425);
     game.load.image('baloon', 'Assets/Personaggi/vignetta.png');
-    game.load.spritesheet('background', 'Assets/Backgrounds/back1.png', 1024, 768);
-    game.load.spritesheet('background1', 'Assets/Backgrounds/back2.png', 1024, 768);
-    game.load.spritesheet('background2', 'Assets/Backgrounds/back2.1.png', 1024, 768);
-    game.load.spritesheet('background3', 'Assets/Backgrounds/backVillage.png', 1024, 768);
-    game.load.image('background4', 'Assets/Backgrounds/back3.0.png');
-    game.load.spritesheet('background5', 'Assets/Backgrounds/back3.png', 1024, 768);
-    game.load.spritesheet('background6', 'Assets/Backgrounds/back3.1.png', 1024, 768);
-    game.load.spritesheet('background7', 'Assets/Backgrounds/back4.png', 1024, 768);
+    game.load.spritesheet('background', 'Assets/Backgrounds/back0.png', 1024, 768);
+    game.load.spritesheet('background1', 'Assets/Backgrounds/back1.png', 1024, 768);
+    game.load.spritesheet('background2', 'Assets/Backgrounds/back2.png', 1024, 768);
+    game.load.spritesheet('background3', 'Assets/Backgrounds/back3.png', 1024, 768);
+    game.load.image('background4', 'Assets/Backgrounds/back4.png');
+    game.load.spritesheet('background5', 'Assets/Backgrounds/back5.png', 1024, 768);
+    game.load.image('background6', 'Assets/Backgrounds/back6.png');
+    game.load.spritesheet('background7', 'Assets/Backgrounds/back7.png', 1024, 768);
+    game.load.image('background8', 'Assets/Backgrounds/back8.png');
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('grey', 'Assets/Icons/grey.png');
     game.load.image('healthBar', 'Assets/Icons/healthBar.png');
@@ -68,6 +69,7 @@ export let GameState = {
     game.load.image('X', 'Assets/Icons/X.png');
     game.load.image('inventory', 'Assets/Icons/pergamena.png');
     game.load.image('pollen', 'Assets/Icons/polline.png');
+    game.load.image('flower', 'Assets/Icons/stellaAlpina.png');
     game.load.image('star', 'Assets/Icons/star.png');
     game.load.image('fionda', 'Assets/Icons/fionda.png');
     game.load.image('ground', 'Assets/Terrain/ground.png');
@@ -80,6 +82,7 @@ export let GameState = {
     game.load.image('platformStagno', 'Assets/Terrain/platformStagno.png');
     game.load.image('platformStagno1', 'Assets/Terrain/platformStagno1.png');
     game.load.image('platformStagno2', 'Assets/Terrain/platformStagno2.png');
+    game.load.image('platformFinale', 'Assets/Terrain/platformFinale.png');
     game.load.image('block', 'Assets/Terrain/block.png');
     game.load.image('bullets', 'Assets/Icons/rock.png');
   },
@@ -115,7 +118,7 @@ export let GameState = {
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 227, pollicino);
-    let golem = npcFactory.create('golem', 7800, 110, pollicino);
+    let golem = npcFactory.create('golem', 7880, 110, pollicino);
 
 
     symbolFactory = new ProximitySymbolFactory(game);
@@ -172,7 +175,7 @@ export let GameState = {
     eventFactory.add('Golem finish talking', 'finishTalking', {
       NPCWithMultipleText: golem,
       execute: function () {
-        mainUserInterface.star.alpha = 0.5;
+        mainUserInterface.fiore.alpha = 1;
         block.sprite.kill();
       }
     });
@@ -201,7 +204,7 @@ export let GameState = {
       pollicino.sprite.y = 220;
     }
     if (game.input.keyboard.justPressed(Phaser.Keyboard.TWO)) {
-      pollicino.sprite.x = 7300;
+      pollicino.sprite.x = 7800;
       pollicino.sprite.y = 220;
     }
   }
@@ -216,6 +219,7 @@ let
   background5,
   background6,
   background7,
+  background8,
   block,
   transition;
 
@@ -237,11 +241,10 @@ function createBackgrounds(game) {
   background5.animations.add('pond');
   background5.animations.play('pond', 8, true);
   background6 = game.add.sprite(6144, 0, 'background6');
-  background6.animations.add('wind');
-  background6.animations.play('wind', 8, true);
   background7 = game.add.sprite(7168, 0, 'background7');
   background7.animations.add('cloud');
   background7.animations.play('cloud', 8, true);
+  background8 = game.add.sprite(8192, 0, 'background8');
   transition = game.add.sprite(750, 0, 'transition');
 
   backgroundGroup.add(background);
@@ -252,6 +255,7 @@ function createBackgrounds(game) {
   backgroundGroup.add(background5);
   backgroundGroup.add(background6);
   backgroundGroup.add(background7);
+  backgroundGroup.add(background8);
   backgroundGroup.add(transition);
 }
 
@@ -265,10 +269,13 @@ function createTerrain(game) {
   groundFactory.create("static", 'platform2', 2100, 500);
   groundFactory.create("static", 'platform2', 2680, 400);
   groundFactory.create("movable", 'platform2', 3200, 300, { isHorizontal: true, range: 170, speed: 90 });
-  groundFactory.create("static", 'platform2', 3900, 300);
-  groundFactory.create("static", 'platform3', 7880, 598);
-  groundFactory.create("static", 'platform3', 7200, 500);
-  groundFactory.create("static", 'platform5', 7620, 430);
+  groundFactory.create("static", 'platform2', 3900, 600);
+  groundFactory.create("static", 'platform3', 7980, 608);
+  groundFactory.create("static", 'platform3', 8400, 550);
+  groundFactory.create("static", 'platformFinale', 8880, 668);
+  groundFactory.create("static", 'platformFinale', 9080, 668);
+  groundFactory.create("static", 'platform3', 7150, 500);
+  groundFactory.create("static", 'platform5', 7620, 600);
   groundFactory.create("static", 'platform4', 6460, 560);
   groundFactory.create("static", 'platformStagno1', 4360, 430);
   groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 150, speed: 70 });
@@ -277,7 +284,7 @@ function createTerrain(game) {
   groundFactory.create("movable", 'platformStagno2', 6200, 580, { isHorizontal: false, range: 150, speed: 60 });
   groundFactory.create("static", 'platformStagno2', 5070, 500);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
-  block = groundFactory.create("static", 'block', 7820, 200);
+  block = groundFactory.create("static", 'block', 9120, 180);
 }
 
 function touchEnemyCallback(pollicinoSprite, enemySprite) {

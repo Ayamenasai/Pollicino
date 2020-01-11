@@ -19,6 +19,10 @@ export class MainUserInterface {
         this.bava.fixedToCamera = true;
         this.bava.alpha = 0.5;
 
+        this.fiore = game.add.sprite(920, 60, 'flower');
+        this.fiore.fixedToCamera = true;
+        this.fiore.alpha = 0.5;
+
         this.star = game.add.sprite(780, 60, 'star');
         this.star.fixedToCamera = true;
         this.star.alpha = 0.3;
