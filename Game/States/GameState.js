@@ -199,12 +199,8 @@ export let GameState = {
     mainUserInterface.update();
     pollicino.closestNPC = npcFactory.findClosestNPC(pollicino);
 
-    if (game.input.keyboard.justPressed(Phaser.Keyboard.ONE)) {
-      pollicino.sprite.x = 1700;
-      pollicino.sprite.y = 220;
-    }
     if (game.input.keyboard.justPressed(Phaser.Keyboard.TWO)) {
-      pollicino.sprite.x = 7800;
+      pollicino.sprite.x = 8000;
       pollicino.sprite.y = 220;
     }
   }
@@ -271,7 +267,7 @@ function createTerrain(game) {
   groundFactory.create("movable", 'platform2', 3200, 300, { isHorizontal: true, range: 170, speed: 90 });
   groundFactory.create("static", 'platform2', 3800, 500);
   groundFactory.create("static", 'platform3', 7980, 608);
-  groundFactory.create("static", 'platform3', 8400, 550);
+  groundFactory.create("static", 'platform3', 8500, 550);
   groundFactory.create("static", 'platformFinale', 8880, 668);
   groundFactory.create("static", 'platformFinale', 9080, 668);
   groundFactory.create("static", 'platform3', 7150, 500);
