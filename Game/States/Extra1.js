@@ -1,6 +1,6 @@
-export let Extra = {
+export let Extra1 = {
     preload: function (game) {
-        game.load.image('extra', 'Assets/Backgrounds/extra.png');
+        game.load.image('extra', 'Assets/Backgrounds/extra1.png');
         game.load.image('arrow', 'Assets/Icons/arrow.png');
         game.load.image('arrowLeft', 'Assets/Icons/arrowLeft.png');
 
@@ -33,8 +33,8 @@ export let Extra = {
 };
 let arrow, arrowLeft;
 function Next(sprite, pointer) {
-    pointer.game.state.start("Extra1");
+    pointer.game.state.start("Extra2");
 }
 function Previous(sprite, pointer) {
-    pointer.game.state.start("Menu");
+    pointer.game.state.start("Extra");
 }

@@ -114,11 +114,11 @@ export let GameState = {
     let ladybug = enemyFactory.create('ladybug', 1010, 20, pollicino);
     let bee = enemyFactory.create('bee', 4000, 0, pollicino);
     enemyFactory.create('fly', 4400, 0, pollicino);
-    let frog = enemyFactory.create('frog', 6460, 360, pollicino);
+    let frog = enemyFactory.create('frog', 6660, 420, pollicino);
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 227, pollicino);
-    let golem = npcFactory.create('golem', 7880, 110, pollicino);
+    let golem = npcFactory.create('golem', 7990, 220, pollicino);
 
 
     symbolFactory = new ProximitySymbolFactory(game);
@@ -200,7 +200,7 @@ export let GameState = {
     pollicino.closestNPC = npcFactory.findClosestNPC(pollicino);
 
     if (game.input.keyboard.justPressed(Phaser.Keyboard.TWO)) {
-      pollicino.sprite.x = 8000;
+      pollicino.sprite.x = 8100;
       pollicino.sprite.y = 220;
     }
   }
@@ -280,7 +280,7 @@ function createTerrain(game) {
   groundFactory.create("movable", 'platformStagno2', 6200, 580, { isHorizontal: false, range: 150, speed: 60 });
   groundFactory.create("static", 'platformStagno2', 5070, 500);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
-  block = groundFactory.create("static", 'block', 9120, 180);
+  block = groundFactory.create("static", 'block', 9120, 430);
 }
 
 function touchEnemyCallback(pollicinoSprite, enemySprite) {

@@ -9,7 +9,7 @@ export let Credits = {
     create: function (game) {
         game.add.sprite(20, 0, 'cover');
         game.add.sprite(70, 60, 'credits');
-        arrowLeft = game.add.sprite(340, 690, 'arrowLeft');
+        arrowLeft = game.add.sprite(120, 660, 'arrowLeft');
         arrowLeft.inputEnabled = true;
         arrowLeft.events.onInputDown.add(Previous, { args: game });
     },
