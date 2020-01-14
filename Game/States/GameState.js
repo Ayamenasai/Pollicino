@@ -269,7 +269,7 @@ function createTerrain(game) {
   groundFactory.create("static", 'platform2', 2100, 500);
   groundFactory.create("static", 'platform2', 2680, 400);
   groundFactory.create("movable", 'platform2', 3200, 300, { isHorizontal: true, range: 170, speed: 90 });
-  groundFactory.create("static", 'platform2', 3900, 600);
+  groundFactory.create("static", 'platform2', 3800, 500);
   groundFactory.create("static", 'platform3', 7980, 608);
   groundFactory.create("static", 'platform3', 8400, 550);
   groundFactory.create("static", 'platformFinale', 8880, 668);
