@@ -83,6 +83,7 @@ export let GameState = {
     game.load.image('platformStagno1', 'Assets/Terrain/platformStagno1.png');
     game.load.image('platformStagno2', 'Assets/Terrain/platformStagno2.png');
     game.load.image('platformFinale', 'Assets/Terrain/platformFinale.png');
+    game.load.image('villaggio', 'Assets/Terrain/villaggio.png');
     game.load.image('block', 'Assets/Terrain/block.png');
     game.load.image('bullets', 'Assets/Icons/rock.png');
   },
@@ -132,6 +133,7 @@ export let GameState = {
 
 
     let firstSack = sackGroup.create(480, 420, 'sack');
+    game.add.sprite(9000, 20, 'villaggio');
 
     eventFactory.add('picked up first sack', 'onKill', {
       sprite: firstSack,
@@ -242,6 +244,7 @@ function createBackgrounds(game) {
   background7.animations.play('cloud', 8, true);
   background8 = game.add.sprite(8192, 0, 'background8');
   transition = game.add.sprite(750, 0, 'transition');
+  
 
   backgroundGroup.add(background);
   backgroundGroup.add(background1);
@@ -281,6 +284,7 @@ function createTerrain(game) {
   groundFactory.create("static", 'platformStagno2', 5070, 500);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
   block = groundFactory.create("static", 'block', 9120, 430);
+ 
 }
 
 function touchEnemyCallback(pollicinoSprite, enemySprite) {

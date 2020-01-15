@@ -50,7 +50,7 @@ export class Pollicino extends Character {
             this.sprite.x = 0;
         }
 
-        if (this.sprite.x > 9600) {
+        if (this.sprite.x > 9800) {
             this.game.state.start('PergamenaFinale');
         }
 
