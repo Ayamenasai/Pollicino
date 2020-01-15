@@ -8,6 +8,7 @@ export let FinalRender = {
         arrow = game.add.sprite(860, 700, 'arrow');
         arrow.inputEnabled = true;
         arrow.events.onInputDown.add(Next, { args: game });
+       
     },
     update: function (game) {
 

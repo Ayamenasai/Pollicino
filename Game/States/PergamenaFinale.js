@@ -11,6 +11,7 @@ export let PergamenaFinale = {
         arrow.inputEnabled = true;
 
         arrow.events.onInputDown.add(Next, { args: game });
+       
     },
     update: function (game) {
 

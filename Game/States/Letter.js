@@ -8,8 +8,8 @@ export let Letter = {
     },
     create: function (game) {
         game.add.sprite(0, 0, 'pergamena');
-        arrow = game.add.sprite(810, 660, 'arrow');
-        arrowLeft = game.add.sprite(110, 660, 'arrowLeft');
+        arrow = game.add.sprite(810, 690, 'arrow');
+        arrowLeft = game.add.sprite(120, 690, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
 

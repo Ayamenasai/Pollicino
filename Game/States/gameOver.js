@@ -1,18 +1,20 @@
 export let GameOver = {
     preload: function (game) {
         game.load.image('gameOver', 'Assets/Backgrounds/gameOver.png');
+        game.load.image('loser', 'Assets/Icons/haiperso.png');
         game.load.image('restart', 'Assets/Icons/iconRestart.png');
         game.load.image('quit', 'Assets/Icons/iconQuit.png');
 
 
     },
     create: function (game) {
-        game.add.sprite(0, 0, 'gameOver');
-        restart = game.add.sprite(212, 384, 'restart');
+        game.add.sprite(200, 0, 'gameOver');
+        game.add.sprite(260, 60, 'loser');
+        restart = game.add.sprite(90, 400, 'restart');
         restart.inputEnabled = true;
         restart.events.onInputDown.add(startAgain, { args: game });
 
-        quit = game.add.sprite(612, 384, 'quit');
+        quit = game.add.sprite(740, 400, 'quit');
         quit.inputEnabled = true;
         quit.events.onInputDown.add(Quit, { args: game });
         game.sound.stopAll();

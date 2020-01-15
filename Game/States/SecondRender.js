@@ -9,9 +9,9 @@ export let SecondRender = {
     },
     create: function(game){
         game.add.sprite(0, 0, 'secondRender');
-        game.add.sprite(280, 550, 'pergamena');
-        arrow = game.add.sprite(860, 700, 'arrow');
-        arrowLeft = game.add.sprite(360, 700, 'arrowLeft');
+        game.add.sprite(280, 580, 'pergamena');
+        arrow = game.add.sprite(870, 720, 'arrow');
+        arrowLeft = game.add.sprite(360, 720, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
         

@@ -16,6 +16,7 @@ export let MenuState = {
         creditsIcon.inputEnabled = true;
         storyIcon.inputEnabled = true;
         extraIcon.inputEnabled = true;
+        game.sound.stopAll();
         
         storyIcon.events.onInputDown.add(GoToStory, { args: game });
         playIcon.events.onInputDown.add(GoToGame, { args: game });
