@@ -59,7 +59,7 @@ function GoToGame(sprite, pointer) {
     pointer.game.state.start("Game");
 }
 function GoToCredits(sprite, pointer) {
-    pointer.game.state.start("Credits");
+    pointer.game.state.start("Autori");
 }
 function GoToExtra(sprite, pointer) {
     pointer.game.state.start("Extra");
