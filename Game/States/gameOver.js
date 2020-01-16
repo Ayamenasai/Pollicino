@@ -9,12 +9,12 @@ export let GameOver = {
     },
     create: function (game) {
         game.add.sprite(200, 0, 'gameOver');
-        game.add.sprite(260, 60, 'loser');
-        restart = game.add.sprite(90, 400, 'restart');
+        game.add.sprite(160, 60, 'loser');
+        restart = game.add.sprite(740, 400, 'restart');
         restart.inputEnabled = true;
         restart.events.onInputDown.add(startAgain, { args: game });
 
-        quit = game.add.sprite(740, 400, 'quit');
+        quit = game.add.sprite(40, 400, 'quit');
         quit.inputEnabled = true;
         quit.events.onInputDown.add(Quit, { args: game });
         game.sound.stopAll();

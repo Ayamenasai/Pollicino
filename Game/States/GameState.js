@@ -133,7 +133,7 @@ export let GameState = {
 
 
     let firstSack = sackGroup.create(480, 420, 'sack');
-    game.add.sprite(9000, 20, 'villaggio');
+    game.add.sprite(9240, 40, 'villaggio');
 
     eventFactory.add('picked up first sack', 'onKill', {
       sprite: firstSack,
@@ -272,7 +272,7 @@ function createTerrain(game) {
   groundFactory.create("static", 'platform3', 7980, 608);
   groundFactory.create("static", 'platform3', 8500, 550);
   groundFactory.create("static", 'platformFinale', 8880, 668);
-  groundFactory.create("static", 'platformFinale', 9080, 668);
+  groundFactory.create("static", 'platformFinale', 9680, 668);
   groundFactory.create("static", 'platform3', 7150, 500);
   groundFactory.create("static", 'platform5', 7620, 600);
   groundFactory.create("static", 'platform4', 6460, 560);
