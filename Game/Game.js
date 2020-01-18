@@ -16,6 +16,8 @@ import { Extra1 } from "./States/Extra1.js";
 import { Extra2 } from "./States/Extra2.js";
 import { Extra3 } from "./States/Extra3.js";
 import { Extra4 } from "./States/Extra4.js";
+import { Extra5 } from "./States/Extra5.js";
+import { Extra6 } from "./States/Extra6.js";
 
 let game = new Phaser.Game(1024, 768, Phaser.AUTO, "The best game");
 
@@ -28,6 +30,8 @@ game.state.add("Extra1", Extra1);
 game.state.add("Extra2", Extra2);
 game.state.add("Extra3", Extra3);
 game.state.add("Extra4", Extra4);
+game.state.add("Extra5", Extra5);
+game.state.add("Extra6", Extra6);
 game.state.add("FirstRender", FirstRender);
 game.state.add("SecondRender", SecondRender);
 game.state.add("ThirdRender", ThirdRender);

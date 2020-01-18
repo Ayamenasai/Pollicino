@@ -57,6 +57,7 @@ export let GameState = {
     game.load.image('background6', 'Assets/Backgrounds/back6.png');
     game.load.spritesheet('background7', 'Assets/Backgrounds/back7.png', 1024, 768);
     game.load.image('background8', 'Assets/Backgrounds/back8.png');
+    game.load.spritesheet('background9', 'Assets/Backgrounds/back9.png', 1024, 768);
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('grey', 'Assets/Icons/grey.png');
     game.load.image('healthBar', 'Assets/Icons/healthBar.png');
@@ -83,6 +84,7 @@ export let GameState = {
     game.load.image('platformStagno1', 'Assets/Terrain/platformStagno1.png');
     game.load.image('platformStagno2', 'Assets/Terrain/platformStagno2.png');
     game.load.image('platformFinale', 'Assets/Terrain/platformFinale.png');
+    game.load.image('platformFinalePiccola', 'Assets/Terrain/platformFinalepiccola.png');
     game.load.image('villaggio', 'Assets/Terrain/villaggio.png');
     game.load.image('block', 'Assets/Terrain/block.png');
     game.load.image('bullets', 'Assets/Icons/rock.png');
@@ -119,7 +121,7 @@ export let GameState = {
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 227, pollicino);
-    let golem = npcFactory.create('golem', 7990, 220, pollicino);
+    let golem = npcFactory.create('golem', 7920, 90, pollicino);
 
 
     symbolFactory = new ProximitySymbolFactory(game);
@@ -133,7 +135,7 @@ export let GameState = {
 
 
     let firstSack = sackGroup.create(480, 420, 'sack');
-    game.add.sprite(9240, 40, 'villaggio');
+    game.add.sprite(9240, 0, 'villaggio');
 
     eventFactory.add('picked up first sack', 'onKill', {
       sprite: firstSack,
@@ -218,6 +220,7 @@ let
   background6,
   background7,
   background8,
+  background9,
   block,
   transition;
 
@@ -243,6 +246,9 @@ function createBackgrounds(game) {
   background7.animations.add('cloud');
   background7.animations.play('cloud', 8, true);
   background8 = game.add.sprite(8192, 0, 'background8');
+  background9 = game.add.sprite(9216, 0, 'background9');
+  background9.animations.add('leaf');
+  background9.animations.play('leaf', 8, true);
   transition = game.add.sprite(750, 0, 'transition');
   
 
@@ -255,6 +261,7 @@ function createBackgrounds(game) {
   backgroundGroup.add(background6);
   backgroundGroup.add(background7);
   backgroundGroup.add(background8);
+  backgroundGroup.add(background9);
   backgroundGroup.add(transition);
 }
 
@@ -269,12 +276,11 @@ function createTerrain(game) {
   groundFactory.create("static", 'platform2', 2680, 400);
   groundFactory.create("movable", 'platform2', 3200, 300, { isHorizontal: true, range: 170, speed: 90 });
   groundFactory.create("static", 'platform2', 3800, 500);
-  groundFactory.create("static", 'platform3', 7980, 608);
-  groundFactory.create("static", 'platform3', 8500, 550);
-  groundFactory.create("static", 'platformFinale', 8880, 668);
-  groundFactory.create("static", 'platformFinale', 9680, 668);
-  groundFactory.create("static", 'platform3', 7150, 500);
-  groundFactory.create("static", 'platform5', 7620, 600);
+  groundFactory.create("static", 'platform3', 7960, 480);
+  groundFactory.create("static", 'platformFinalePiccola', 8400, 560);
+  groundFactory.create("static", 'platformFinale', 8880, 608);
+  groundFactory.create("static", 'platform3', 7250, 500);
+  groundFactory.create("static", 'platform5', 7680, 420);
   groundFactory.create("static", 'platform4', 6460, 560);
   groundFactory.create("static", 'platformStagno1', 4360, 430);
   groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 150, speed: 70 });
@@ -283,7 +289,7 @@ function createTerrain(game) {
   groundFactory.create("movable", 'platformStagno2', 6200, 580, { isHorizontal: false, range: 150, speed: 60 });
   groundFactory.create("static", 'platformStagno2', 5070, 500);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
-  block = groundFactory.create("static", 'block', 9120, 430);
+  block = groundFactory.create("static", 'block', 9120, 360);
  
 }
 

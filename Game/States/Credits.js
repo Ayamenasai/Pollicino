@@ -6,7 +6,7 @@ export let Credits = {
 
     },
     create: function (game) {
-        game.add.sprite(10, 0, 'crediti');
+        game.add.sprite(0, 0, 'crediti');
         arrowLeft = game.add.sprite(120, 660, 'arrowLeft');
         arrowLeft.inputEnabled = true;
         arrowLeft.events.onInputDown.add(Previous, { args: game });
