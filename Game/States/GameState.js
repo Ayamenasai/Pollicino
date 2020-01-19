@@ -121,7 +121,7 @@ export let GameState = {
 
     npcFactory = new NPCFactory(game);
     npcFactory.create('sindaco', 1700, 227, pollicino);
-    let golem = npcFactory.create('golem', 7920, 90, pollicino);
+    let golem = npcFactory.create('golem', 7930, 100, pollicino);
 
 
     symbolFactory = new ProximitySymbolFactory(game);

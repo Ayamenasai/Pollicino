@@ -8,10 +8,10 @@ export let MenuState = {
     },
     create: function(game){
         game.add.sprite( 0, 0,'cover');
-        storyIcon = game.add.sprite(633, 206, 'icon');
-        playIcon = game.add.sprite(690, 420, 'play');
-        creditsIcon = game.add.sprite(690, 667, 'crediti');
-        extraIcon = game.add.sprite(600, 548, 'extra');
+        storyIcon = game.add.sprite(670, 298, 'icon');
+        playIcon = game.add.sprite(736, 470, 'play');
+        creditsIcon = game.add.sprite(720, 670, 'crediti');
+        extraIcon = game.add.sprite(640, 576, 'extra');
         playIcon.inputEnabled = true;
         creditsIcon.inputEnabled = true;
         storyIcon.inputEnabled = true;

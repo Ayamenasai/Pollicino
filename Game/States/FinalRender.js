@@ -5,7 +5,7 @@ export let FinalRender = {
     },
     create: function (game) {
         game.add.sprite(0, 0, 'finalRender');
-        arrow = game.add.sprite(860, 700, 'arrow');
+        arrow = game.add.sprite(880, 700, 'arrow');
         arrow.inputEnabled = true;
         arrow.events.onInputDown.add(Next, { args: game });
        
