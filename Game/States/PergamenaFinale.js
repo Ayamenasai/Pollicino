@@ -26,5 +26,5 @@ export let PergamenaFinale = {
 };
 let arrow, arrowLeft;
 function Next(sprite, pointer) {
-    pointer.game.state.start("FinalRender");
+    pointer.game.state.start("Menu");
 }

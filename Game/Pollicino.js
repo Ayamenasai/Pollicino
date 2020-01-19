@@ -51,7 +51,7 @@ export class Pollicino extends Character {
         }
 
         if (this.sprite.x > 9800) {
-            this.game.state.start('PergamenaFinale');
+            this.game.state.start('FinalRender');
         }
 
 

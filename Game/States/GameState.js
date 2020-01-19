@@ -54,9 +54,9 @@ export let GameState = {
     game.load.spritesheet('background3', 'Assets/Backgrounds/back3.png', 1024, 768);
     game.load.image('background4', 'Assets/Backgrounds/back4.png');
     game.load.spritesheet('background5', 'Assets/Backgrounds/back5.png', 1024, 768);
-    game.load.image('background6', 'Assets/Backgrounds/back6.png');
+    game.load.spritesheet('background6', 'Assets/Backgrounds/back6.png', 1024, 768);
     game.load.spritesheet('background7', 'Assets/Backgrounds/back7.png', 1024, 768);
-    game.load.image('background8', 'Assets/Backgrounds/back8.png');
+    game.load.spritesheet('background8', 'Assets/Backgrounds/back8.png', 1024, 768);
     game.load.spritesheet('background9', 'Assets/Backgrounds/back9.png', 1024, 768);
     game.load.image('transition', 'Assets/Backgrounds/transition.png');
     game.load.image('grey', 'Assets/Icons/grey.png');
@@ -242,10 +242,14 @@ function createBackgrounds(game) {
   background5.animations.add('pond');
   background5.animations.play('pond', 8, true);
   background6 = game.add.sprite(6144, 0, 'background6');
+  background6.animations.add('rain');
+  background6.animations.play('rain', 8, true);
   background7 = game.add.sprite(7168, 0, 'background7');
   background7.animations.add('cloud');
   background7.animations.play('cloud', 8, true);
   background8 = game.add.sprite(8192, 0, 'background8');
+  background8.animations.add('rainy');
+  background8.animations.play('rainy', 8, true);
   background9 = game.add.sprite(9216, 0, 'background9');
   background9.animations.add('leaf');
   background9.animations.play('leaf', 8, true);
@@ -277,19 +281,19 @@ function createTerrain(game) {
   groundFactory.create("movable", 'platform2', 3200, 300, { isHorizontal: true, range: 170, speed: 90 });
   groundFactory.create("static", 'platform2', 3800, 500);
   groundFactory.create("static", 'platform3', 7960, 480);
-  groundFactory.create("static", 'platformFinalePiccola', 8400, 560);
-  groundFactory.create("static", 'platformFinale', 8880, 608);
+  groundFactory.create("static", 'platformFinalePiccola', 8470, 560);
+  groundFactory.create("static", 'platformFinale', 8880, 638);
   groundFactory.create("static", 'platform3', 7250, 500);
   groundFactory.create("static", 'platform5', 7680, 420);
   groundFactory.create("static", 'platform4', 6460, 560);
   groundFactory.create("static", 'platformStagno1', 4360, 430);
-  groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 150, speed: 70 });
+  groundFactory.create("movable", 'platformStagno', 5360, 390, { isHorizontal: true, range: 160, speed: 70 });
   groundFactory.create("static", 'platformStagno1', 5790, 480);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
   groundFactory.create("movable", 'platformStagno2', 6200, 580, { isHorizontal: false, range: 150, speed: 60 });
   groundFactory.create("static", 'platformStagno2', 5070, 500);
   groundFactory.create("static", 'platformStagno2', 4780, 580);
-  block = groundFactory.create("static", 'block', 9120, 360);
+  block = groundFactory.create("static", 'block', 9120, 400);
  
 }
 

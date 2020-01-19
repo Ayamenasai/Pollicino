@@ -8,8 +8,8 @@ export let Autori = {
     },
     create: function (game) {
         game.add.sprite(0, 0, 'cover');
-        arrow = game.add.sprite(810, 700, 'arrow');
-        arrowLeft = game.add.sprite(120, 700, 'arrowLeft');
+        arrow = game.add.sprite(960, 700, 'arrow');
+        arrowLeft = game.add.sprite(20, 700, 'arrowLeft');
         arrow.inputEnabled = true;
         arrowLeft.inputEnabled = true;
         arrow.events.onInputDown.add(Next, { args: game });

@@ -8,7 +8,7 @@ export let GameOver = {
 
     },
     create: function (game) {
-        game.add.sprite(200, 0, 'gameOver');
+        game.add.sprite(40, 0, 'gameOver');
         game.add.sprite(160, 60, 'loser');
         restart = game.add.sprite(740, 400, 'restart');
         restart.inputEnabled = true;
