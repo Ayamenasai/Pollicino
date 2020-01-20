@@ -202,11 +202,6 @@ export let GameState = {
     eventFactory.update();
     mainUserInterface.update();
     pollicino.closestNPC = npcFactory.findClosestNPC(pollicino);
-
-    if (game.input.keyboard.justPressed(Phaser.Keyboard.TWO)) {
-      pollicino.sprite.x = 8100;
-      pollicino.sprite.y = 220;
-    }
   }
 };
 
